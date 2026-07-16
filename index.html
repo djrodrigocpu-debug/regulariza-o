@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<!-- ============================================================
+  LANDING PAGE — REGULARIZAÇÃO VEICULAR (Detran/PR)
+  Identidade visual compartilhada com: direito-a-saude.html
+
+  ⚠️ TROCAR ANTES DE PUBLICAR:
+  1. Número do WhatsApp  → procure por  const ZAP  (formato: 55 + DDD + número)
+  2. Número da OAB       → procure por  OAB/PR 95.516
+  3. E-mail              → procure por  contato@seudominio.com.br
+  4. URL canônica e OG   → procure por  https://SEU-DOMINIO.com.br
+  5. (Opcional) foto real na seção "Sobre" — instruções no local
+============================================================ -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advogado para Regularização de Veículo no Detran/PR | Curitiba — Dr. Rodrigo Souza Filho</title>
+<meta name="description" content="Veículo com bloqueio, restrição, transferência negada ou pendência no Detran/PR? Quando o caminho administrativo trava, a via judicial pode destravar a regularização. Atendimento em Curitiba e em todo o Paraná.">
+<meta name="theme-color" content="#16352C">
+<link rel="canonical" href="https://SEU-DOMINIO.com.br/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Veículo travado no Detran/PR? | Dr. Rodrigo Souza Filho — Advocacia">
+<meta property="og:description" content="Bloqueios, restrições, leilão, gravame e transferências negadas: análise individual do seu caso, pela via administrativa ou judicial.">
+<meta property="og:url" content="https://SEU-DOMINIO.com.br/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2316352C'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-size='22' fill='%23C6A96A' text-anchor='middle'%3ERSF%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Albert+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LegalService",
+  "name": "Dr. Rodrigo Souza Filho — Advocacia em Regularização Veicular",
+  "description": "Ações administrativas e judiciais para regularização de veículos junto ao Detran/PR: bloqueios, restrições, transferência, leilão, gravame e chassi.",
+  "url": "https://SEU-DOMINIO.com.br/",
+  "areaServed": ["Curitiba", "Paraná"],
+  "address": { "@type": "PostalAddress", "addressLocality": "Curitiba", "addressRegion": "PR", "addressCountry": "BR" },
+  "knowsAbout": ["Regularização de Veículos", "Detran PR", "Bloqueio de Veículo", "Transferência de Propriedade", "Mandado de Segurança", "Direito Administrativo"]
+}
+</script>
+<style>
+/* ==========================================================
+   IDENTIDADE VISUAL — compartilhada entre as duas páginas
+   Paleta: porcelana fria, verde-pinheiro (araucária),
+   grafite esverdeado e latão de placa de escritório.
+========================================================== */
+:root{
+  --porcelana:#F4F7F3;
+  --folha:#FFFFFF;
+  --pinheiro:#16352C;
+  --pinheiro-2:#0E241D;
+  --grafite:#39463F;
+  --suave:#6B7770;
+  --nevoa:#DCE4DC;
+  --latao:#A5854C;
+  --latao-claro:#C9AC6C;
+  --latao-escuro:#6E572E;
+  --wa:#25D366;
+  --serif:"Newsreader",Georgia,serif;
+  --sans:"Albert Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --raio:10px;
+  --sombra:0 10px 30px rgba(22,53,44,.08);
+  --transicao:.28s cubic-bezier(.4,0,.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);
+  background:var(--porcelana);
+  color:var(--grafite);
+  font-size:1.0625rem;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{display:block}
+a{color:inherit}
+section{scroll-margin-top:88px}
+.container{max-width:1120px;margin:0 auto;padding:0 24px}
+
+/* ---------- tipografia ---------- */
+h1,h2,.serif{font-family:var(--serif);color:var(--pinheiro);font-weight:500;line-height:1.15;letter-spacing:-.01em}
+h1{font-size:clamp(2.2rem,5.2vw,3.5rem)}
+h2{font-size:clamp(1.7rem,3.4vw,2.4rem)}
+h1 em,h2 em,.band em{font-style:italic;font-weight:500;color:var(--latao-escuro)}
+.band em{color:var(--latao-claro)}
+h3{font-family:var(--sans);font-weight:600;font-size:1.06rem;color:var(--pinheiro);line-height:1.35}
+.lead{font-size:clamp(1.08rem,2vw,1.22rem);color:var(--grafite);max-width:38em}
+p.muted,.muted{color:var(--suave)}
+
+/* eyebrow estilo "papel timbrado": rótulo entre filetes duplos */
+.eyebrow{
+  display:inline-flex;align-items:center;gap:14px;
+  font-size:.78rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--latao-escuro);margin-bottom:18px;
+}
+.eyebrow::before,.eyebrow::after{
+  content:"";width:34px;height:5px;
+  border-top:1px solid var(--latao);border-bottom:1px solid var(--latao);
+  opacity:.55;
+}
+.eyebrow--right::after{display:none}
+
+/* ---------- header ---------- */
+.topo{
+  position:fixed;inset:0 0 auto 0;z-index:50;
+  background:rgba(244,247,243,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid transparent;
+  transition:border-color var(--transicao),box-shadow var(--transicao);
+}
+.topo.rolou{border-bottom-color:var(--nevoa);box-shadow:0 4px 20px rgba(22,53,44,.06)}
+.topo-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+.marca{display:flex;align-items:center;gap:12px;text-decoration:none}
+.marca-mono{
+  width:40px;height:40px;border-radius:9px;display:grid;place-items:center;
+  background:linear-gradient(160deg,var(--latao-claro),var(--latao) 55%,var(--latao-escuro));
+  font-family:var(--serif);font-weight:600;font-size:1.05rem;color:#3E2F14;
+  text-shadow:0 1px 0 rgba(255,255,255,.4);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.35),0 2px 6px rgba(22,53,44,.18);
+}
+.marca-nome{font-family:var(--serif);font-size:1.12rem;color:var(--pinheiro);line-height:1.1}
+.marca-nome small{display:block;font-family:var(--sans);font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--suave)}
+.nav{display:flex;align-items:center;gap:28px}
+.nav a{font-size:.94rem;font-weight:500;text-decoration:none;color:var(--grafite);transition:color var(--transicao)}
+.nav a:hover{color:var(--pinheiro)}
+.nav .btn{padding:.62em 1.2em;font-size:.9rem}
+@media(max-width:860px){.nav a:not(.btn){display:none}}
+
+/* ---------- botões ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--sans);font-weight:600;font-size:1rem;text-decoration:none;
+  padding:.9em 1.6em;border-radius:999px;border:1px solid transparent;
+  cursor:pointer;transition:transform var(--transicao),box-shadow var(--transicao),background var(--transicao),color var(--transicao),border-color var(--transicao);
+}
+.btn svg{width:19px;height:19px;flex:none}
+.btn-primario{background:var(--pinheiro);color:var(--porcelana)}
+.btn-primario:hover{background:var(--pinheiro-2);transform:translateY(-2px);box-shadow:0 10px 24px rgba(22,53,44,.22)}
+.btn-contorno{border-color:var(--pinheiro);color:var(--pinheiro);background:transparent}
+.btn-contorno:hover{background:var(--pinheiro);color:var(--porcelana);transform:translateY(-2px)}
+.btn:focus-visible,a:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid var(--latao);outline-offset:3px;border-radius:6px}
+
+/* ---------- hero ---------- */
+.hero{
+  padding:158px 0 84px;position:relative;overflow:hidden;
+  background:
+    radial-gradient(720px 420px at 88% -10%,rgba(165,133,76,.13),transparent 65%),
+    radial-gradient(560px 420px at -12% 108%,rgba(22,53,44,.07),transparent 60%),
+    var(--porcelana);
+}
+.hero-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:56px;align-items:center}
+.hero h1{margin:0 0 20px}
+.hero .lead{margin-bottom:32px}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:30px}
+.chips{display:flex;flex-wrap:wrap;gap:10px 22px;list-style:none}
+.chips li{display:flex;align-items:center;gap:8px;font-size:.88rem;font-weight:500;color:var(--suave)}
+.chips svg{width:15px;height:15px;color:var(--latao);flex:none}
+@media(max-width:920px){
+  .hero{padding:130px 0 64px}
+  .hero-grid{grid-template-columns:1fr;gap:44px}
+}
+
+/* ---------- placa de latão (elemento-assinatura) ---------- */
+.placa{
+  width:min(360px,100%);margin-left:auto;
+  padding:34px 30px;border-radius:12px;text-align:center;
+  background:linear-gradient(155deg,#D7BC80 0%,var(--latao-claro) 22%,var(--latao) 58%,#8A6C3C 100%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.38),inset 0 0 0 7px rgba(62,47,20,.14),inset 0 0 0 8px rgba(255,255,255,.22),0 18px 40px rgba(22,53,44,.22);
+  transform:rotate(-1.2deg);
+}
+.placa *{color:#3E2F14;text-shadow:0 1px 0 rgba(255,255,255,.35)}
+.placa-mono{font-family:var(--serif);font-size:2rem;font-weight:600;letter-spacing:.06em}
+.placa-nome{font-family:var(--serif);font-size:1.45rem;font-weight:500;margin-top:6px}
+.placa-fio{width:56px;height:1px;background:rgba(62,47,20,.45);margin:14px auto;box-shadow:0 1px 0 rgba(255,255,255,.35)}
+.placa-tit{font-size:.72rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase}
+.placa-area{font-family:var(--serif);font-style:italic;font-size:1.02rem;margin-top:10px}
+@media(max-width:920px){.placa{margin:0 auto;transform:rotate(0)}}
+
+/* ---------- seções ---------- */
+.secao{padding:88px 0}
+.secao-cab{max-width:640px;margin-bottom:46px}
+.secao-cab p{margin-top:12px}
+@media(max-width:720px){.secao{padding:64px 0}}
+
+/* cards de situações */
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;list-style:none}
+.card{
+  background:var(--folha);border:1px solid var(--nevoa);border-radius:var(--raio);
+  padding:26px 22px;transition:transform var(--transicao),box-shadow var(--transicao),border-color var(--transicao);
+}
+.card:hover{transform:translateY(-4px);border-color:var(--latao);box-shadow:var(--sombra)}
+.card-icone{
+  width:44px;height:44px;border-radius:9px;display:grid;place-items:center;margin-bottom:16px;
+  background:rgba(22,53,44,.06);color:var(--pinheiro);
+}
+.card-icone svg{width:22px;height:22px}
+.card h3{margin-bottom:8px}
+.card p{font-size:.92rem;line-height:1.55;color:var(--suave)}
+@media(max-width:1000px){.cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.cards{grid-template-columns:1fr}}
+
+/* faixa escura (declaração) */
+.band{background:var(--pinheiro);color:var(--porcelana);padding:84px 0}
+.band-inner{max-width:820px}
+.band .eyebrow{color:var(--latao-claro)}
+.band .eyebrow::before,.band .eyebrow::after{border-color:var(--latao-claro)}
+.band p.grande{font-family:var(--serif);font-size:clamp(1.5rem,3.2vw,2.15rem);line-height:1.35;color:#EDF3ED}
+.band p.ressalva{margin-top:22px;font-size:.95rem;color:rgba(237,243,237,.72);max-width:44em}
+
+/* etapas */
+.etapas{display:grid;grid-template-columns:repeat(4,1fr);gap:34px 26px;counter-reset:etapa;list-style:none}
+.etapa{counter-increment:etapa;position:relative;padding-top:14px}
+.etapa::before{
+  content:counter(etapa,decimal-leading-zero);
+  font-family:var(--serif);font-size:2.6rem;font-weight:500;line-height:1;
+  color:var(--latao);display:block;margin-bottom:12px;
+}
+.etapa::after{content:"";position:absolute;top:34px;left:64px;right:0;height:1px;background:var(--nevoa)}
+.etapa:last-child::after{display:none}
+.etapa h3{margin-bottom:8px}
+.etapa p{font-size:.94rem;color:var(--suave);line-height:1.6}
+@media(max-width:960px){
+  .etapas{grid-template-columns:1fr 1fr}
+  .etapa:nth-child(2)::after{display:none}
+}
+@media(max-width:560px){.etapas{grid-template-columns:1fr}.etapa::after{display:none}}
+
+/* documentos */
+.docs{background:var(--folha);border:1px solid var(--nevoa);border-radius:var(--raio);padding:34px 32px;display:flex;flex-wrap:wrap;gap:28px;align-items:center}
+.docs-titulo{flex:1 1 240px}
+.docs-titulo h3{font-family:var(--serif);font-size:1.3rem;font-weight:500}
+.docs-titulo p{font-size:.92rem;color:var(--suave);margin-top:6px}
+.docs ul{flex:2 1 420px;display:grid;grid-template-columns:1fr 1fr;gap:12px 26px;list-style:none}
+.docs li{display:flex;gap:10px;align-items:flex-start;font-size:.95rem}
+.docs li svg{width:17px;height:17px;color:var(--latao);flex:none;margin-top:4px}
+@media(max-width:640px){.docs ul{grid-template-columns:1fr}}
+
+/* sobre */
+.sobre-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:56px;align-items:center}
+.sobre p+p{margin-top:14px}
+.sobre-lista{margin-top:24px;list-style:none;display:grid;gap:12px}
+.sobre-lista li{display:flex;gap:12px;align-items:flex-start}
+.sobre-lista svg{width:18px;height:18px;color:var(--latao);flex:none;margin-top:5px}
+.sobre-lista strong{color:var(--pinheiro);font-weight:600}
+/* Para usar uma FOTO no lugar da placa: substitua a <div class="placa">
+   por <img src="sua-foto.jpg" alt="Dr. Rodrigo Souza Filho" style="width:100%;border-radius:12px"> */
+@media(max-width:920px){.sobre-grid{grid-template-columns:1fr;gap:40px}}
+
+/* FAQ */
+.faq{max-width:780px}
+.faq details{border-bottom:1px solid var(--nevoa)}
+.faq summary{
+  list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:18px;
+  padding:22px 4px;font-weight:600;color:var(--pinheiro);font-size:1.04rem;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .mais{flex:none;width:26px;height:26px;border-radius:50%;border:1px solid var(--nevoa);display:grid;place-items:center;color:var(--latao-escuro);font-weight:500;transition:transform var(--transicao),background var(--transicao)}
+.faq details[open] .mais{transform:rotate(45deg);background:rgba(165,133,76,.12)}
+.faq details p{padding:0 44px 24px 4px;color:var(--suave)}
+
+/* contato */
+.contato{background:var(--folha);border-top:1px solid var(--nevoa)}
+.contato-grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);gap:56px}
+.form{display:grid;gap:16px}
+.form label{font-size:.85rem;font-weight:600;color:var(--pinheiro);display:grid;gap:7px}
+.form input,.form textarea{
+  font:inherit;color:var(--grafite);background:var(--porcelana);
+  border:1px solid var(--nevoa);border-radius:8px;padding:.85em 1em;width:100%;
+  transition:border-color var(--transicao),box-shadow var(--transicao);
+}
+.form input:focus,.form textarea:focus{outline:none;border-color:var(--latao);box-shadow:0 0 0 3px rgba(165,133,76,.18)}
+.form textarea{min-height:120px;resize:vertical}
+.form .btn{justify-content:center;width:100%}
+.form small{color:var(--suave);font-size:.8rem;line-height:1.5}
+.contato-alt{display:grid;gap:18px;align-content:start}
+.contato-alt a{color:var(--pinheiro);font-weight:600;text-decoration:none;border-bottom:1px solid var(--latao)}
+@media(max-width:880px){.contato-grid{grid-template-columns:1fr;gap:44px}}
+
+/* footer */
+.rodape{background:var(--pinheiro-2);color:rgba(237,243,237,.78);padding:56px 0 40px;font-size:.9rem}
+.rodape a{color:#EDF3ED;text-decoration:none;border-bottom:1px solid rgba(201,172,108,.5)}
+.rodape a:hover{border-bottom-color:var(--latao-claro)}
+.rodape-grid{display:flex;flex-wrap:wrap;gap:32px;justify-content:space-between;margin-bottom:34px}
+.rodape .marca-nome{color:#EDF3ED}
+.rodape .marca-nome small{color:rgba(237,243,237,.6)}
+.rodape-aviso{border-top:1px solid rgba(237,243,237,.15);padding-top:26px;font-size:.8rem;line-height:1.7;color:rgba(237,243,237,.55);max-width:70em}
+
+/* WhatsApp flutuante */
+.zap-flutuante{
+  position:fixed;right:20px;bottom:20px;z-index:60;
+  width:58px;height:58px;border-radius:50%;display:grid;place-items:center;
+  background:var(--wa);color:#fff;box-shadow:0 10px 26px rgba(18,140,80,.4);
+  transition:transform var(--transicao),box-shadow var(--transicao);
+}
+.zap-flutuante:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 14px 32px rgba(18,140,80,.5)}
+.zap-flutuante svg{width:30px;height:30px}
+
+/* animações de entrada */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visivel{opacity:1;transform:none}
+.hero .reveal{transition-duration:.85s}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+  .btn,.card,.zap-flutuante{transition:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="topo" id="topo">
+  <div class="container topo-inner">
+    <a class="marca" href="#inicio" aria-label="Início — Dr. Rodrigo Souza Filho, advocacia">
+      <span class="marca-mono" aria-hidden="true">RSF</span>
+      <span class="marca-nome">Rodrigo Souza Filho<small>Advocacia · Regularização Veicular</small></span>
+    </a>
+    <nav class="nav" aria-label="Navegação principal">
+      <a href="#situacoes">Situações</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#duvidas">Dúvidas</a>
+      <a class="btn btn-primario" href="#" data-zap="Olá! Vim pelo site de regularização veicular e gostaria de falar sobre meu caso no Detran/PR.">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11.9 11.9 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.6 4.2 1.6 6L0 24l6.3-1.6c1.7.9 3.7 1.4 5.7 1.4 6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.4-8.4ZM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.86 9.86 0 0 1-1.5-5.3C2.2 6.4 6.6 2 12 2c2.6 0 5.1 1 6.9 2.9a9.7 9.7 0 0 1 2.9 7c0 5.5-4.4 9.9-9.8 9.9Zm5.4-7.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-1-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.2-.6-.4Z"/></svg>
+        WhatsApp
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <p class="eyebrow eyebrow--right reveal">Advocacia · Regularização Veicular</p>
+      <h1 class="reveal">Seu veículo <em>travado</em> na burocracia do Detran/PR?</h1>
+      <p class="lead reveal">Bloqueios, restrições, transferências negadas e exigências que não se resolvem no balcão podem ser destravados — pela via administrativa e, quando necessário, pela <strong>via judicial</strong>. Você recupera o direito de usar, transferir e regularizar o que é seu.</p>
+      <div class="hero-ctas reveal">
+        <a class="btn btn-primario" href="#" data-zap="Olá! Meu veículo está com pendência no Detran/PR e gostaria de uma análise do meu caso.">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11.9 11.9 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.6 4.2 1.6 6L0 24l6.3-1.6c1.7.9 3.7 1.4 5.7 1.4 6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.4-8.4ZM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.86 9.86 0 0 1-1.5-5.3C2.2 6.4 6.6 2 12 2c2.6 0 5.1 1 6.9 2.9a9.7 9.7 0 0 1 2.9 7c0 5.5-4.4 9.9-9.8 9.9Zm5.4-7.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-1-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.2-.6-.4Z"/></svg>
+          Falar com o advogado
+        </a>
+        <a class="btn btn-contorno" href="#como-funciona">Como funciona</a>
+      </div>
+      <ul class="chips reveal">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>OAB/PR 95.516</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Curitiba · atendimento em todo o Paraná</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Retorno rápido pelo WhatsApp</li>
+      </ul>
+    </div>
+    <div class="reveal">
+      <div class="placa" role="img" aria-label="Placa de latão: Rodrigo Souza Filho, advogado, OAB/PR, regularização veicular">
+        <div class="placa-mono">RSF</div>
+        <div class="placa-nome">Rodrigo Souza Filho</div>
+        <div class="placa-fio"></div>
+        <div class="placa-tit">Advogado · OAB/PR 95.516</div>
+        <div class="placa-area">Regularização Veicular</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SITUAÇÕES ================= -->
+<section class="secao" id="situacoes">
+  <div class="container">
+    <div class="secao-cab reveal">
+      <p class="eyebrow">Situações frequentes</p>
+      <h2>Pendências que <em>têm</em> caminho jurídico</h2>
+      <p class="muted">Se o seu caso está aqui — ou parece com algum deles — existe um procedimento para destravar. Nem sempre é rápido no balcão, mas raramente é um beco sem saída.</p>
+    </div>
+    <ul class="cards">
+      <li class="card reveal">
+        <span class="card-icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"/></svg></span>
+        <h3>Bloqueios e restrições</h3>
+        <p>Bloqueios administrativos e judiciais (RENAJUD) que impedem licenciamento, transferência ou circulação.</p>
+      </li>
+      <li class="card reveal">
+        <span class="card-icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h13l-3-3M20 16H7l3 3"/></svg></span>
+        <h3>Transferência negada</h3>
+        <p>Detran recusa a transferência de propriedade por exigências indevidas, divergências de cadastro ou pendências de terceiros.</p>
+      </li>
+      <li class="card reveal">
+        <span class="card-icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 4 5 12l3 3 8-8-3-3ZM4 20h9M11 9l4 4"/></svg></span>
+        <h3>Veículo de leilão</h3>
+        <p>Carros arrematados como sinistrados ou recuperados que travam na vistoria, no laudo CSV ou no reingresso à circulação.</p>
+      </li>
+      <li class="card reveal">
+        <span class="card-icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h16M4 15h16M9 4l-2 16M17 4l-2 16"/></svg></span>
+        <h3>Chassi ou motor divergente</h3>
+        <p>Numeração ilegível, remarcada ou em desacordo com o cadastro — inclusive motor trocado sem regularização anterior.</p>
+      </li>
+      <li class="card reveal">
+        <span class="card-icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V10l8-6 8 6v11"/><path d="M9 21v-6h6v6M8 10h8"/></svg></span>
+        <h3>Gravame que não baixa</h3>
+        <p>Financiamento quitado, mas a instituição financeira não deu baixa no gravame — e o veículo segue preso no sistema.</p>
+      </li>
+      <li class="card reveal">
+        <span class="card-icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3Z"/><path d="M9.5 8h5M9.5 12h5"/></svg></span>
+        <h3>Débitos do antigo dono</h3>
+        <p>Multas, IPVA e taxas de períodos anteriores à compra cobrados de quem não deu causa a eles.</p>
+      </li>
+      <li class="card reveal">
+        <span class="card-icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 18 5v14L3 13v-2Z"/><path d="M18 8a4 4 0 0 1 0 8M7 13v5a2 2 0 0 0 4 0v-3"/></svg></span>
+        <h3>Comunicação de venda</h3>
+        <p>Você vendeu, o comprador não transferiu — e multas e débitos continuam chegando no seu nome.</p>
+      </li>
+      <li class="card reveal">
+        <span class="card-icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M8 3v4M16 3v4M4 11h16M9 16l2 2 4-4"/></svg></span>
+        <h3>Documentação atrasada</h3>
+        <p>Registro pendente, licenciamento acumulado ou veículo parado há anos que precisa voltar à regularidade.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= FAIXA / VIA JUDICIAL ================= -->
+<section class="band">
+  <div class="container band-inner">
+    <p class="eyebrow eyebrow--right reveal">Quando o balcão trava</p>
+    <p class="grande serif reveal">Se o caminho administrativo se esgota e a exigência é indevida, o Judiciário pode <em>determinar</em> que o Detran cumpra o que a lei garante.</p>
+    <p class="ressalva reveal">Cada caso tem particularidades próprias. A via adequada — recurso administrativo, mandado de segurança ou ação de obrigação de fazer — e os prazos dependem da situação concreta, por isso a análise é sempre individual.</p>
+  </div>
+</section>
+
+<!-- ================= COMO FUNCIONA ================= -->
+<section class="secao" id="como-funciona">
+  <div class="container">
+    <div class="secao-cab reveal">
+      <p class="eyebrow">Passo a passo</p>
+      <h2>Como funciona, do primeiro contato à regularização</h2>
+    </div>
+    <ol class="etapas">
+      <li class="etapa reveal">
+        <h3>Você conta o seu caso</h3>
+        <p>Pelo WhatsApp, você descreve a pendência e envia os documentos do veículo que já tem em mãos.</p>
+      </li>
+      <li class="etapa reveal">
+        <h3>Análise individual</h3>
+        <p>Estudo o histórico do veículo, as exigências do Detran e a legislação para definir o caminho mais eficiente.</p>
+      </li>
+      <li class="etapa reveal">
+        <h3>Administrativo ou judicial</h3>
+        <p>Quando a via administrativa resolve, seguimos por ela. Quando trava, entro com a medida judicial cabível.</p>
+      </li>
+      <li class="etapa reveal">
+        <h3>Acompanhamento</h3>
+        <p>Você recebe atualizações claras de cada etapa, em linguagem simples, até a regularização do veículo.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================= DOCUMENTOS ================= -->
+<section class="secao" style="padding-top:0">
+  <div class="container">
+    <div class="docs reveal">
+      <div class="docs-titulo">
+        <h3>O que ajuda na análise</h3>
+        <p>Não precisa ter tudo — começamos com o que você tiver.</p>
+      </div>
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>CRV/CRLV ou nota fiscal do veículo</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Protocolos, negativas e exigências do Detran</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Laudos, vistorias e notas de leilão (se houver)</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Comprovantes de quitação ou pagamento</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SOBRE ================= -->
+<section class="secao" id="sobre" style="padding-top:0">
+  <div class="container sobre-grid">
+    <div class="reveal">
+      <div class="placa" style="transform:rotate(1.2deg)" role="img" aria-label="Placa de latão do escritório">
+        <div class="placa-mono">RSF</div>
+        <div class="placa-nome">Rodrigo Souza Filho</div>
+        <div class="placa-fio"></div>
+        <div class="placa-tit">Advogado · OAB/PR 95.516</div>
+        <div class="placa-area">Curitiba — Paraná</div>
+      </div>
+    </div>
+    <div class="sobre reveal">
+      <p class="eyebrow eyebrow--right">Sobre o advogado</p>
+      <h2>Atendimento direto, sem intermediários</h2>
+      <p style="margin-top:14px">Sou advogado inscrito na OAB/PR, com atuação dedicada à regularização de veículos junto ao Detran/PR. Trabalho para que a burocracia não valha mais do que o seu direito de usar e dispor do que é seu.</p>
+      <ul class="sobre-lista">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><strong>Você fala com o advogado</strong> — do primeiro contato às atualizações do processo.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><strong>Linguagem clara</strong> — cada etapa explicada sem juridiquês.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><strong>Todo o Paraná</strong> — o atendimento é online; os atos junto ao Detran/PR e ao Judiciário, eu conduzo por você.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="secao" id="duvidas" style="padding-top:0">
+  <div class="container">
+    <div class="secao-cab reveal">
+      <p class="eyebrow">Dúvidas frequentes</p>
+      <h2>O que as pessoas costumam perguntar</h2>
+    </div>
+    <div class="faq reveal">
+      <details>
+        <summary>Preciso tentar resolver no Detran antes de entrar na Justiça?<span class="mais" aria-hidden="true">+</span></summary>
+        <p>Nem sempre. Em muitos casos vale tentar a via administrativa primeiro — é mais barata e pode ser rápida. Mas quando a exigência é claramente indevida, quando já houve negativa ou quando o tempo de espera causa prejuízo, é possível ir direto à via judicial. Essa escolha faz parte da análise do caso.</p>
+      </details>
+      <details>
+        <summary>Quanto tempo demora para destravar o veículo?<span class="mais" aria-hidden="true">+</span></summary>
+        <p>Depende da natureza da pendência e da via escolhida. Medidas como o mandado de segurança costumam tramitar com mais celeridade que ações comuns, e em algumas situações é possível pedir decisão liminar. Não é possível prometer prazo ou resultado: cada situação é avaliada individualmente.</p>
+      </details>
+      <details>
+        <summary>Comprei um carro de leilão. Ele pode voltar a circular?<span class="mais" aria-hidden="true">+</span></summary>
+        <p>Depende da classificação do sinistro e dos laudos técnicos (como o CSV). Veículos recuperáveis têm caminho de regularização previsto em norma; o problema costuma estar em exigências desproporcionais ou em travas de sistema — e é aí que a atuação jurídica faz diferença. A resposta honesta exige analisar os documentos do seu veículo.</p>
+      </details>
+      <details>
+        <summary>As multas e o IPVA do antigo dono são responsabilidade minha?<span class="mais" aria-hidden="true">+</span></summary>
+        <p>Depende da natureza do débito e do momento em que ele surgiu. Parte das cobranças pode ser afastada ou redirecionada a quem deu causa, e há decisões favoráveis a compradores de boa-fé. É uma das análises mais comuns — e mais técnicas — dessa área.</p>
+      </details>
+      <details>
+        <summary>Posso vender o veículo enquanto ele está bloqueado?<span class="mais" aria-hidden="true">+</span></summary>
+        <p>Em regra, não — bloqueios e restrições impedem a transferência, e vender nessas condições gera problema para os dois lados. O caminho seguro é destravar primeiro: é exatamente esse o objetivo do trabalho.</p>
+      </details>
+      <details>
+        <summary>Moro fora de Curitiba. Você atende minha cidade?<span class="mais" aria-hidden="true">+</span></summary>
+        <p>Sim. O atendimento é feito pelo WhatsApp e por videochamada para todo o Paraná, e os atos junto ao Detran/PR e ao Judiciário são conduzidos por mim. Quem preferir atendimento presencial em Curitiba é bem-vindo, com hora marcada.</p>
+      </details>
+      <details>
+        <summary>Como funcionam os honorários?<span class="mais" aria-hidden="true">+</span></summary>
+        <p>As condições são explicadas com transparência na conversa inicial, antes de qualquer compromisso, e formalizadas em contrato escrito. Você decide com calma, sabendo exatamente como funciona.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTATO ================= -->
+<section class="secao contato" id="contato">
+  <div class="container contato-grid">
+    <div class="reveal">
+      <p class="eyebrow eyebrow--right">Fale com o advogado</p>
+      <h2>Conte o seu caso.<br>A análise é <em>individual</em>.</h2>
+      <div class="contato-alt" style="margin-top:26px">
+        <p class="muted">Prefere falar direto? O caminho mais rápido é o WhatsApp — a mensagem chega na hora e o retorno é ágil.</p>
+        <p>E-mail: <a href="mailto:contato@seudominio.com.br">contato@seudominio.com.br</a></p>
+        <p class="muted">Atendimento presencial em Curitiba/PR com hora marcada · Online para todo o Paraná.</p>
+      </div>
+    </div>
+    <form class="form reveal" id="formContato" novalidate>
+      <label>Seu nome
+        <input type="text" name="nome" autocomplete="name" required>
+      </label>
+      <label>Seu WhatsApp (com DDD)
+        <input type="tel" name="telefone" autocomplete="tel" inputmode="tel" placeholder="(41) 9 9999-9999">
+      </label>
+      <label>Descreva sua situação
+        <textarea name="mensagem" required placeholder="Ex.: o Detran negou a transferência do meu veículo porque…"></textarea>
+      </label>
+      <button class="btn btn-primario" type="submit">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11.9 11.9 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.6 4.2 1.6 6L0 24l6.3-1.6c1.7.9 3.7 1.4 5.7 1.4 6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.4-8.4ZM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.86 9.86 0 0 1-1.5-5.3C2.2 6.4 6.6 2 12 2c2.6 0 5.1 1 6.9 2.9a9.7 9.7 0 0 1 2.9 7c0 5.5-4.4 9.9-9.8 9.9Zm5.4-7.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-1-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.2-.6-.4Z"/></svg>
+        Enviar pelo WhatsApp
+      </button>
+      <small>Ao enviar, seu WhatsApp abre com a mensagem pronta — nada é armazenado neste site. Seus dados são usados apenas para o retorno do contato (LGPD).</small>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="rodape">
+  <div class="container">
+    <div class="rodape-grid">
+      <div class="marca">
+        <span class="marca-mono" aria-hidden="true">RSF</span>
+        <span class="marca-nome">Rodrigo Souza Filho<small>Advogado · OAB/PR 95.516</small></span>
+      </div>
+      <div>
+        <p>Curitiba — Paraná · <a href="mailto:contato@seudominio.com.br">contato@seudominio.com.br</a></p>
+        <!-- Após publicar o outro site, transforme o texto abaixo em link usando a URL pública dele. -->
+        <p style="margin-top:8px">Outra área de atuação: <span>Ações contra planos de saúde</span></p>
+      </div>
+    </div>
+    <p class="rodape-aviso">Este site tem caráter exclusivamente informativo, em conformidade com o Código de Ética e Disciplina da OAB e com o Provimento nº 205/2021. As informações aqui apresentadas não constituem promessa de resultado: cada caso é analisado individualmente e o desfecho depende de circunstâncias próprias. © 2026 Rodrigo Souza Filho — Advocacia.</p>
+  </div>
+</footer>
+
+<a class="zap-flutuante" href="#" data-zap="Olá! Vim pelo site de regularização veicular e gostaria de falar sobre meu caso no Detran/PR." aria-label="Conversar pelo WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11.9 11.9 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.6 4.2 1.6 6L0 24l6.3-1.6c1.7.9 3.7 1.4 5.7 1.4 6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.4-8.4ZM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.86 9.86 0 0 1-1.5-5.3C2.2 6.4 6.6 2 12 2c2.6 0 5.1 1 6.9 2.9a9.7 9.7 0 0 1 2.9 7c0 5.5-4.4 9.9-9.8 9.9Zm5.4-7.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-1-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.2-.6-.4Z"/></svg>
+</a>
+
+<script>
+/* ⚠️ TROCAR: número do WhatsApp no formato internacional (55 + DDD + número, só dígitos) */
+const ZAP = "5541999999999";
+
+/* Links data-zap → wa.me com mensagem pronta */
+document.querySelectorAll("[data-zap]").forEach(el => {
+  el.addEventListener("click", ev => {
+    ev.preventDefault();
+    const msg = el.getAttribute("data-zap") || "Olá! Vim pelo site e gostaria de falar sobre meu caso.";
+    window.open("https://wa.me/" + ZAP + "?text=" + encodeURIComponent(msg), "_blank", "noopener");
+  });
+});
+
+/* Formulário → abre WhatsApp com a mensagem montada */
+document.getElementById("formContato").addEventListener("submit", ev => {
+  ev.preventDefault();
+  const f = ev.target;
+  const nome = f.nome.value.trim();
+  const tel  = f.telefone.value.trim();
+  const msg  = f.mensagem.value.trim();
+  if (!nome || !msg) { f.reportValidity(); return; }
+  let texto = "Olá! Meu nome é " + nome + ".";
+  if (tel) texto += " Meu WhatsApp: " + tel + ".";
+  texto += "\n\nSituação: " + msg + "\n\n(Enviado pelo site — Regularização Veicular)";
+  window.open("https://wa.me/" + ZAP + "?text=" + encodeURIComponent(texto), "_blank", "noopener");
+});
+
+/* Sombra no header ao rolar */
+const topo = document.getElementById("topo");
+addEventListener("scroll", () => topo.classList.toggle("rolou", scrollY > 8), { passive: true });
+
+/* Revelação suave ao entrar na tela */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("visivel"); io.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll(".reveal").forEach((el, i) => {
+  el.style.transitionDelay = Math.min(i % 4 * 70, 280) + "ms";
+  io.observe(el);
+});
+</script>
+</body>
+</html>

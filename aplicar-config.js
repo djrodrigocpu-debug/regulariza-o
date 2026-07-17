@@ -2,19 +2,43 @@
 /* ============================================================
    aplicar-config.js — escreve os dados de config.js dentro do HTML.
 
-   Uso:  node aplicar-config.js
+   VOCÊ NÃO PRECISA RODAR ESTE ARQUIVO.
+   O Vercel executa "npm run build" (que chama este script) a cada
+   publicação no GitHub. O fluxo é: editar config.js -> enviar ao
+   GitHub -> aguardar o Vercel publicar. Só isso.
 
-   Por que existe: um botão de WhatsApp precisa funcionar mesmo que o
-   JavaScript não carregue. Este script coloca o link real no href.
-   Pode rodar quantas vezes quiser: os modelos ficam em .modelos/ e a
-   página é sempre remontada a partir deles.
+   (Rodar "node aplicar-config.js" localmente continua possível,
+   para quem quiser conferir o resultado antes de publicar.)
+
+   O que ele faz:
+   1. lê config.js e valida os dados (dado errado interrompe o
+      build com mensagem clara; dado VAZIO é permitido — o elemento
+      correspondente simplesmente não aparece no site);
+   2. remonta index.html, privacidade.html e obrigado.html a partir
+      de modelos/ (por isso os HTML da raiz não devem ser editados
+      à mão: qualquer build os sobrescreve);
+   3. grava o resultado na raiz (para conferência local) e em
+      public/ (a pasta que o Vercel publica), junto com assets/ e
+      config.js.
+
+   Condicionais nos modelos (fechamento leva o nome da chave, o que
+   permite blocos aninhados de chaves diferentes):
+       <!--SE:whatsapp--> ... <!--/SE:whatsapp-->
+       <!--SENAO:email--> ... <!--/SENAO:email-->
+   Chaves: whatsapp, telefone, email, dominio, urlOutro.
 ============================================================ */
 const fs = require("fs");
 const path = require("path");
 const vm = require("vm");
 
-const PAGINAS = ["index.html", "obrigado.html", "privacidade.html"];
-const MODELOS = path.join(__dirname, ".modelos");
+const PAGINAS = ["index.html", "privacidade.html", "obrigado.html"];
+const MODELOS = path.join(__dirname, "modelos");
+const PUBLICO = path.join(__dirname, "public");
+
+/* Qual campo de config.js guarda o endereço do OUTRO site.
+   Neste projeto (Regularização Veicular), o outro site é o de
+   Direito à Saúde. */
+const CHAVE_URL_OUTRO = "urlDireitoSaude";
 
 function lerConfig() {
   const src = fs.readFileSync(path.join(__dirname, "config.js"), "utf8");
@@ -36,14 +60,20 @@ function validar(cfg) {
   const dom = (cfg.dominio || "").trim();
   if (dom) {
     if (/^https?:\/\//i.test(dom)) erros.push('dominio: tire o "https://", informe só o domínio.');
-    if (dom.includes("/")) erros.push('dominio: sem barras. Ex.: "exemplo.adv.br".');
-    if (/seu-?dominio|exemplo\.com/i.test(dom)) erros.push('dominio: "' + dom + '" parece um domínio de exemplo.');
+    if (dom.includes("/")) erros.push('dominio: sem barras. Informe só o domínio, na forma nomedosite.com.br.');
+    if (/seu-?dominio|exemplo\./i.test(dom)) erros.push('dominio: "' + dom + '" parece um domínio de exemplo.');
   }
   const em = (cfg.email || "").trim();
   if (em) {
     if (!/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(em)) erros.push('email: "' + em + '" não parece um e-mail válido.');
-    if (/seudominio|exemplo\.com/i.test(em)) erros.push('email: "' + em + '" parece um e-mail de exemplo.');
+    if (/seu-?dominio|exemplo\./i.test(em)) erros.push('email: "' + em + '" parece um e-mail de exemplo.');
   }
+  ["urlDireitoSaude", "urlRegularizacaoVeicular"].forEach(function (chave) {
+    const u = (cfg[chave] || "").trim();
+    if (!u) return;
+    if (!/^https:\/\/[^\s"'<>]+$/i.test(u)) erros.push(chave + ': use o endereço completo, começando com https:// e sem espaços.');
+    if (/seu-?dominio|exemplo\./i.test(u)) erros.push(chave + ': "' + u + '" parece um endereço de exemplo.');
+  });
   const ads = (cfg.googleAdsConversionId || "").trim();
   if (ads && !/^AW-\d{9,12}$/.test(ads)) erros.push('googleAdsConversionId: "' + ads + '" deveria ser AW- seguido de 9 a 12 dígitos.');
   const gtm = (cfg.googleTagManagerId || "").trim();
@@ -56,17 +86,22 @@ function decodeEntidades(s) {
           .replace(/&quot;/g, '"').replace(/&#39;/g, "'");
 }
 
-/* mesmo motor de tokens do gerador */
+function escapeRegExp(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
+
+/* motor de tokens: condicionais com fechamento nomeado + substituições */
 function resolver(txt, cfg) {
+  const urlOutro = (cfg[CHAVE_URL_OUTRO] || "").trim().replace(/\/+$/, "");
   const tem = {
     whatsapp: !!(cfg.whatsapp || "").trim(),
     telefone: !!(cfg.telefoneExibicao || "").trim(),
     email: !!(cfg.email || "").trim(),
-    dominio: !!(cfg.dominio || "").trim()
+    dominio: !!(cfg.dominio || "").trim(),
+    urlOutro: !!urlOutro
   };
   for (const chave of Object.keys(tem)) {
-    txt = txt.replace(new RegExp("<!--SE:" + chave + "-->([\\s\\S]*?)<!--/SE-->", "g"), tem[chave] ? "$1" : "");
-    txt = txt.replace(new RegExp("<!--SENAO:" + chave + "-->([\\s\\S]*?)<!--/SENAO-->", "g"), tem[chave] ? "" : "$1");
+    const k = escapeRegExp(chave);
+    txt = txt.replace(new RegExp("<!--SE:" + k + "-->([\\s\\S]*?)<!--/SE:" + k + "-->", "g"), tem[chave] ? "$1" : "");
+    txt = txt.replace(new RegExp("<!--SENAO:" + k + "-->([\\s\\S]*?)<!--/SENAO:" + k + "-->", "g"), tem[chave] ? "" : "$1");
   }
   if (tem.whatsapp) {
     txt = txt.replace(/__WA:([\s\S]*?)__/g, function (m, msg) {
@@ -83,48 +118,79 @@ function resolver(txt, cfg) {
   if (tem.dominio) {
     txt = txt.split("__URL__").join("https://" + cfg.dominio.trim().replace(/\/+$/, ""));
   }
+  if (tem.urlOutro) {
+    txt = txt.split("__URL_OUTRO__").join(urlOutro);
+  }
   return txt;
+}
+
+/* nenhum marcador pode sobrar no HTML publicado */
+function conferirSobras(nome, txt) {
+  const sobras = txt.match(/<!--\/?(?:SE|SENAO):[a-zA-Z]+-->|__(?:WA:|TEL__|TEL_TXT__|EMAIL__|EMAIL_LINK__|URL__|URL_OUTRO__)/g);
+  if (sobras) {
+    console.error("  ATENÇÃO em " + nome + ": marcadores não resolvidos: " + Array.from(new Set(sobras)).join(", "));
+    return false;
+  }
+  return true;
+}
+
+function copiarParaPublico() {
+  fs.rmSync(PUBLICO, { recursive: true, force: true });
+  fs.mkdirSync(PUBLICO, { recursive: true });
+  fs.cpSync(path.join(__dirname, "assets"), path.join(PUBLICO, "assets"), { recursive: true });
+  fs.copyFileSync(path.join(__dirname, "config.js"), path.join(PUBLICO, "config.js"));
 }
 
 function principal() {
   const cfg = lerConfig();
   const erros = validar(cfg);
   if (erros.length) {
-    console.error("\n  Configuração com problema — nada foi alterado:\n");
+    console.error("\n  Configuração com problema — nada foi publicado:\n");
     erros.forEach(function (e) { console.error("   • " + e); });
     console.error("");
     process.exit(1);
   }
   if (!fs.existsSync(MODELOS)) {
-    console.error("\n  Pasta .modelos/ não encontrada. Ela vem junto no ZIP e é necessária.\n");
+    console.error("\n  Pasta modelos/ não encontrada. Ela faz parte do projeto e é necessária para o build.\n");
     process.exit(1);
   }
 
+  copiarParaPublico();
+
   console.log("");
+  let tudoOk = true;
   PAGINAS.forEach(function (nome) {
     const modelo = path.join(MODELOS, nome);
-    if (!fs.existsSync(modelo)) return;
-    fs.writeFileSync(path.join(__dirname, nome), resolver(fs.readFileSync(modelo, "utf8"), cfg), "utf8");
+    if (!fs.existsSync(modelo)) { console.error("  FALTA modelo: " + nome); tudoOk = false; return; }
+    const html = resolver(fs.readFileSync(modelo, "utf8"), cfg);
+    if (!conferirSobras(nome, html)) tudoOk = false;
+    fs.writeFileSync(path.join(__dirname, nome), html, "utf8");      /* raiz: conferência local  */
+    fs.writeFileSync(path.join(PUBLICO, nome), html, "utf8");        /* public/: o que o Vercel publica */
     console.log("  ok  " + nome);
   });
+  if (!tudoOk) process.exit(1);
 
+  /* Aviso para o DESENVOLVEDOR (console do build). O visitante do
+     site nunca vê mensagem de configuração pendente: os elementos
+     que dependem de dado vazio simplesmente não são gerados. */
   const faltando = [];
-  if (!(cfg.whatsapp || "").trim()) faltando.push("whatsapp — sem ele, NENHUM botão de WhatsApp aparece");
+  if (!(cfg.whatsapp || "").trim()) faltando.push("whatsapp — sem ele, NENHUM botão de WhatsApp aparece e o formulário fica oculto");
   if (!(cfg.telefoneExibicao || "").trim()) faltando.push("telefoneExibicao — nenhum telefone é exibido");
   if (!(cfg.email || "").trim()) faltando.push("email — nenhum e-mail é exibido");
   if (!(cfg.dominio || "").trim()) faltando.push("dominio — sem canonical nem og:url (prejudica o SEO)");
+  if (!(cfg[CHAVE_URL_OUTRO] || "").trim()) faltando.push(CHAVE_URL_OUTRO + " — o rodapé não mostra o link para a outra área");
   if (!(cfg.googleTagManagerId || "").trim()) faltando.push("googleTagManagerId — o GTM não carrega");
   if (!(cfg.googleAdsConversionId || "").trim()) faltando.push("googleAdsConversionId — nenhuma conversão vai ao Ads");
   if (!(cfg.googleAdsConversionLabelWhatsapp || "").trim()) faltando.push("googleAdsConversionLabelWhatsapp");
   if (!(cfg.googleAdsConversionLabelFormulario || "").trim()) faltando.push("googleAdsConversionLabelFormulario");
 
   if (faltando.length) {
-    console.log("\n  Ainda vazio em config.js:");
+    console.log("\n  Ainda vazio em config.js (o site publica normalmente, sem esses elementos):");
     faltando.forEach(function (f) { console.log("   • " + f); });
   } else {
     console.log("\n  Tudo preenchido.");
   }
-  console.log("");
+  console.log("\n  Publicação pronta em public/.\n");
 }
 
 principal();

@@ -1,46 +1,59 @@
 /* ============================================================
    CONFIGURAÇÃO — Regularização Veicular
-   Este é o ÚNICO arquivo a editar. Depois de preencher, rode na
-   pasta do projeto:
+   Este é o ÚNICO arquivo a editar. Depois de preencher, envie a
+   alteração ao GitHub e aguarde: o Vercel roda o build sozinho e
+   aplica os dados no site. Não é preciso abrir terminal nem rodar
+   comando algum.
 
-       node aplicar-config.js
-
-   O script escreve os dados dentro do HTML, para que os botões
-   funcionem mesmo se o JavaScript falhar. Enquanto o WhatsApp
-   estiver vazio, os botões não aparecem — de propósito: é melhor
-   não ter botão do que ter botão que não funciona.
+   Enquanto um campo estiver vazio, o elemento que depende dele
+   simplesmente não aparece — de propósito: é melhor não ter botão
+   do que ter botão que não funciona. Nenhuma mensagem técnica é
+   exibida ao visitante; avisos de campo vazio saem apenas no
+   console do build e no console do navegador (para o desenvolvedor).
 ============================================================ */
 window.CONFIG = {
 
-  /* WhatsApp, só dígitos: 55 + DDD + número. Ex.: "5541988887777" */
+  /* WhatsApp, só dígitos: 55 + DDD + número (12 ou 13 dígitos ao
+     todo). Vazio = nenhum botão de WhatsApp aparece e o formulário
+     fica oculto. */
   whatsapp: "",
 
-  /* Telefone como deve aparecer na tela. Ex.: "(41) 98888-7777"
+  /* Telefone como deve aparecer na tela, com DDD entre parênteses.
      Vazio = nenhum telefone é exibido. */
   telefoneExibicao: "",
 
-  /* E-mail de contato. Ex.: "contato@exemplo.adv.br" */
+  /* E-mail de contato. Vazio = nenhum e-mail é exibido. */
   email: "",
 
-  /* Domínio final, sem https:// e sem barra. Ex.: "exemplo.adv.br" */
+  /* Domínio final deste site, sem https:// e sem barra.
+     Vazio = o site publica sem canonical/og:url. */
   dominio: "",
 
+  /* ---- Ligação entre os dois sites ----
+     Endereço COMPLETO (com https://) do outro site depois de
+     publicado no Vercel. Enquanto estiver vazio, o link "Outra
+     área de atuação" não aparece no rodapé. */
+  urlDireitoSaude: "",
+  urlRegularizacaoVeicular: "",
+
   /* ---- Google Ads ----
-     ID da conta, formato "AW-XXXXXXXXX". */
+     ID da conta, no formato AW- seguido dos dígitos da conta.
+     Vazio = nenhuma conversão é enviada. */
   googleAdsConversionId: "",
 
   /* Rótulos de conversão (Google Ads > Objetivos > Conversões).
-     Formato: "abcDEfgh12IjKlMn". Sem ID + rótulo, nada é disparado. */
+     Sem ID + rótulo, nada é disparado. */
   googleAdsConversionLabelWhatsapp: "",
   googleAdsConversionLabelFormulario: "",
 
   /* ---- Google Tag Manager ----
-     Formato "GTM-XXXXXXX". Vazio = o GTM nem chega a ser carregado. */
+     No formato GTM- seguido do código do contêiner.
+     Vazio = o GTM nem chega a ser carregado. */
   googleTagManagerId: ""
 };
 
 /* Dados desta página — não precisa mexer. */
 window.PAGINA = {
   tipo: "veicular",
-  mensagemWhatsapp: "Olá, Dr. Rodrigo. Vim pelo site de Regularização Veicular. Meu veículo está com uma pendência no Detran/PR e gostaria de saber quais documentos são necessários para analisar o caso."
+  mensagemWhatsapp: "Olá, Dr. Rodrigo. Vim pelo site de Regularização de Carros Antigos. Tenho um veículo antigo com pendência de documentação ou de cadastro e gostaria de solicitar a análise do caso."
 };

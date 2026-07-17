@@ -3,23 +3,38 @@
 
    Nada de essencial depende deste arquivo. Se ele não carregar:
    - o conteúdo continua visível (o CSS só esconde para animar
-     quando <html> tem a classe "js");
+     quando <html> tem a classe "js", e o próprio HTML remove a
+     classe se este arquivo não confirmar que rodou);
    - os botões de WhatsApp continuam funcionando, porque o link
-     real está no href (escrito por aplicar-config.js).
+     real está no href (escrito no build por aplicar-config.js).
 
    O que ele faz:
    1. consentimento de cookies (nada de medição antes)
    2. Google Tag Manager, só depois do "aceitar"
-   3. captura de origem da campanha (utm_*, gclid, gbraid, wbraid)
+   3. origem da campanha (utm_*, gclid, gbraid, wbraid):
+      - SEM consentimento: só memória + sessionStorage (a visita)
+      - COM consentimento de medição: localStorage por até 90 dias,
+        com data da coleta registrada e limpeza do que expirou
+      - se recusar: o que houver em localStorage é apagado
    4. personaliza a mensagem do WhatsApp com a origem
-   5. eventos de medição no dataLayer
-   6. formulário de triagem -> mensagem pronta no WhatsApp
+   5. eventos de medição no dataLayer (só com consentimento)
+   6. formulário de triagem -> mensagem pronta no WhatsApp,
+      com validação acessível (aria-invalid, foco, role=alert)
    7. barra fixa, animação de entrada, sombra do cabeçalho
+
+   O que a pessoa escreve no formulário NUNCA é gravado — nem em
+   localStorage, nem em sessionStorage, nem em cookie, nem em
+   servidor. A mensagem só existe no link que abre o WhatsApp.
 
    Configuração: config.js. Nada de dado de contato aqui.
 ============================================================ */
 (function () {
   "use strict";
+
+  /* Confirma para o HTML que o script rodou. Se esta linha nunca
+     executar (arquivo bloqueado, erro de rede), o failsafe do
+     <head> remove a classe "js" e todo o conteúdo fica visível. */
+  window.__rsfOk = true;
 
   var C = window.CONFIG || {};
   var P = window.PAGINA || {};
@@ -27,16 +42,46 @@
 
   window.dataLayer = window.dataLayer || [];
 
+  /* ------------------------------------------------------------
+     Aviso técnico — só no console, nunca na página (o visitante
+     não tem nada a fazer com isso; o desenvolvedor tem).
+  ------------------------------------------------------------ */
+  (function avisosDev() {
+    var faltando = [];
+    if (!(C.whatsapp || "").trim()) faltando.push("whatsapp (nenhum botão de WhatsApp é exibido)");
+    if (!(C.telefoneExibicao || "").trim()) faltando.push("telefoneExibicao");
+    if (!(C.email || "").trim()) faltando.push("email");
+    if (!(C.dominio || "").trim()) faltando.push("dominio (sem canonical/og:url)");
+    if (!(C.googleTagManagerId || "").trim()) faltando.push("googleTagManagerId (GTM não carrega)");
+    if (!(C.googleAdsConversionId || "").trim()) faltando.push("googleAdsConversionId (sem conversões no Ads)");
+    if (faltando.length && window.console && console.warn) {
+      console.warn("[config.js] Campos ainda vazios: " + faltando.join(", ") +
+        ". Preencha em config.js e publique — o Vercel aplica no build.");
+    }
+  })();
+
   /* ============================================================
      1. CONSENTIMENTO
+     A escolha fica em localStorage por ser estritamente necessária
+     (lembrar a decisão evita perguntar de novo a cada página) e
+     expira em 12 meses, como diz a política de privacidade.
      ============================================================ */
   var CHAVE_CONSENT = "rsf_consentimento_v1";
+  var DOZE_MESES = 365 * 24 * 60 * 60 * 1000;
   var consent = null;
-  try { consent = JSON.parse(localStorage.getItem(CHAVE_CONSENT) || "null"); } catch (e) { consent = null; }
+  try {
+    consent = JSON.parse(localStorage.getItem(CHAVE_CONSENT) || "null");
+    if (consent && consent.data && (Date.now() - new Date(consent.data).getTime() > DOZE_MESES)) {
+      localStorage.removeItem(CHAVE_CONSENT);
+      consent = null; /* expirou: pergunta de novo */
+    }
+  } catch (e) { consent = null; }
 
   function podeMedir() { return !!(consent && consent.medicao); }
 
-  var banner = doc.getElementById("cookies");
+  /* IDs exclusivos: o banner é #cookiesBanner; a âncora #cookies da
+     política de privacidade é outro elemento, em outra função. */
+  var banner = doc.getElementById("cookiesBanner");
   var opcoes = doc.getElementById("cookiesOpcoes");
   var ckMedicao = doc.getElementById("ckMedicao");
   var btnSalvar = doc.getElementById("ckSalvar");
@@ -44,7 +89,7 @@
   function abrirBanner(comOpcoes) {
     if (!banner) return;
     banner.hidden = false;
-    if (comOpcoes) mostrarOpcoes(true);
+    mostrarOpcoes(!!comOpcoes);
     if (ckMedicao) ckMedicao.checked = podeMedir();
   }
 
@@ -59,7 +104,12 @@
     consent = { v: 1, medicao: !!medicao, data: new Date().toISOString() };
     try { localStorage.setItem(CHAVE_CONSENT, JSON.stringify(consent)); } catch (e) {}
     fecharBanner();
-    if (medicao) carregarGTM();
+    if (medicao) {
+      persistirCampanha();  /* agora pode ir para o localStorage */
+      carregarGTM();
+    } else {
+      limparCampanhaPersistida();  /* recusa: nada persistente de atribuição */
+    }
   }
 
   if (banner) {
@@ -69,6 +119,8 @@
     liga("ckConfigurar", function () { mostrarOpcoes(opcoes ? opcoes.hidden : true); });
     liga("ckSalvar", function () { gravarConsent(ckMedicao && ckMedicao.checked); });
   }
+  /* "Rever preferências de cookies" — presente em index.html,
+     privacidade.html e obrigado.html; reabre o painel completo. */
   liga("refazerCookies", function () { abrirBanner(true); });
 
   function liga(id, fn) {
@@ -94,13 +146,31 @@
 
   /* ============================================================
      3. ORIGEM DA CAMPANHA
-     Só dados de campanha são guardados. O que a pessoa escreve
-     no formulário nunca é gravado em lugar nenhum.
+     Regra de armazenamento:
+       antes do consentimento  -> memória + sessionStorage
+       consentimento aceito    -> também localStorage (até 90 dias,
+                                  com a data da coleta em "ts")
+       consentimento recusado  -> localStorage é limpo
+     O conteúdo do formulário nunca passa por aqui.
      ============================================================ */
   var CHAVE_CAMPANHA = "rsf_campanha_v1";
   var CAMPOS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term",
                 "gclid", "gbraid", "wbraid"];
   var NOVENTA_DIAS = 90 * 24 * 60 * 60 * 1000;
+
+  function guardar(store, dados) {
+    try { store.setItem(CHAVE_CAMPANHA, JSON.stringify(dados)); } catch (e) {}
+  }
+
+  function recuperar(store) {
+    try {
+      var d = JSON.parse(store.getItem(CHAVE_CAMPANHA) || "null");
+      if (!d) return null;
+      /* elimina dado expirado (ou antigo sem data de coleta) */
+      if (!d.ts || Date.now() - d.ts > NOVENTA_DIAS) { store.removeItem(CHAVE_CAMPANHA); return null; }
+      return d;
+    } catch (e) { return null; }
+  }
 
   function lerCampanha() {
     var url = new URLSearchParams(location.search);
@@ -111,26 +181,29 @@
     });
 
     if (tem) {
-      achou.ts = Date.now();
-      guardar(sessionStorage, achou);
-      guardar(localStorage, achou);
+      achou.ts = Date.now();               /* data da coleta */
+      guardar(sessionStorage, achou);      /* sempre permitido: dura a visita */
+      if (podeMedir()) guardar(localStorage, achou);  /* persiste SÓ com consentimento */
       return achou;
     }
-    return recuperar(sessionStorage) || recuperar(localStorage) || {};
+    return recuperar(sessionStorage) || (podeMedir() ? recuperar(localStorage) : null) || {};
   }
 
-  function guardar(store, dados) {
-    try { store.setItem(CHAVE_CAMPANHA, JSON.stringify(dados)); } catch (e) {}
+  /* chamada quando o visitante ACEITA: migra a origem da visita
+     atual (se houver) para o armazenamento de 90 dias */
+  function persistirCampanha() {
+    var atual = recuperar(sessionStorage) || campanha;
+    if (atual && atual.ts) guardar(localStorage, atual);
   }
 
-  function recuperar(store) {
-    try {
-      var d = JSON.parse(store.getItem(CHAVE_CAMPANHA) || "null");
-      if (!d) return null;
-      if (d.ts && Date.now() - d.ts > NOVENTA_DIAS) { store.removeItem(CHAVE_CAMPANHA); return null; }
-      return d;
-    } catch (e) { return null; }
+  /* chamada quando o visitante RECUSA */
+  function limparCampanhaPersistida() {
+    try { localStorage.removeItem(CHAVE_CAMPANHA); } catch (e) {}
   }
+
+  /* higiene: se em algum momento houve persistência e o
+     consentimento não existe mais, remove o que sobrou */
+  if (!podeMedir()) limparCampanhaPersistida();
 
   var campanha = lerCampanha();
 
@@ -151,7 +224,9 @@
   }
 
   /* ============================================================
-     4. MEDIÇÃO
+     4. MEDIÇÃO — todos os eventos levam page_type, button_location
+     (quando faz sentido) e os parâmetros de campanha disponíveis.
+     Nada é enviado sem consentimento.
      ============================================================ */
   function evento(nome, extra) {
     if (!podeMedir()) return;
@@ -173,7 +248,10 @@
   }
 
   /* ============================================================
-     5. WHATSAPP — reforça o href com a origem da campanha
+     5. WHATSAPP — reforça o href com a origem da campanha.
+     O link base já vem escrito no HTML pelo build; aqui ele só
+     ganha a etiqueta de origem (texto que a própria pessoa vê e
+     pode apagar antes de enviar).
      ============================================================ */
   function montarLink(msg) {
     var numero = (C.whatsapp || "").trim();
@@ -186,7 +264,7 @@
   var botoes = doc.querySelectorAll("[data-zap]");
   Array.prototype.forEach.call(botoes, function (a) {
     var link = montarLink(a.getAttribute("data-msg") || P.mensagemWhatsapp || "");
-    if (link) a.setAttribute("href", link);      // href já era válido; aqui só ganha a origem
+    if (link) a.setAttribute("href", link);      /* href já era válido; aqui só ganha a origem */
     a.addEventListener("click", function () {
       evento("whatsapp_click", { button_location: a.getAttribute("data-local") || "" });
       dispararConversaoAds((C.googleAdsConversionLabelWhatsapp || "").trim());
@@ -201,11 +279,59 @@
 
   /* ============================================================
      6. FORMULÁRIO DE TRIAGEM
-     Não envia nada para servidor: monta a mensagem e abre o WhatsApp.
+     Não envia nada para servidor: monta a mensagem e abre o
+     WhatsApp. Validação acessível:
+       - mensagem de erro ganha a classe .aparece (fica visível)
+       - o parágrafo tem role="alert" e aria-live="polite"
+       - campo inválido recebe aria-invalid="true"
+       - o foco vai para o primeiro campo inválido
+       - o erro do campo some assim que ele é corrigido
      ============================================================ */
   var form = doc.getElementById("formContato");
   if (form) {
     var erro = doc.getElementById("formErro");
+    var OBRIGATORIOS = ["nome", "cidade", "estado", "marca", "modelo", "ano",
+                        "aquisicao", "inventario", "finalidade", "mensagem"];
+    var ROTULOS = { nome: "seu nome completo", cidade: "sua cidade", estado: "o estado",
+                    marca: "a marca do veículo", modelo: "o modelo do veículo",
+                    ano: "o ano aproximado", aquisicao: "a forma de aquisição",
+                    inventario: "se o veículo vem de inventário",
+                    finalidade: "a finalidade pretendida", mensagem: "o histórico do veículo" };
+
+    function campo(nome) { return form.querySelector('[name="' + nome + '"]'); }
+    function valor(nome) {
+      var el = campo(nome);
+      return el && el.value ? el.value.trim() : "";
+    }
+
+    function mostrarErro(texto) {
+      if (!erro) return;
+      erro.textContent = texto;
+      erro.classList.add("aparece");
+    }
+    function limparErroGeral() {
+      if (!erro) return;
+      erro.textContent = "";
+      erro.classList.remove("aparece");
+    }
+    function invalidar(el) {
+      if (el) el.setAttribute("aria-invalid", "true");
+    }
+    function revalidar(el) {
+      if (!el) return;
+      if (el.value && el.value.trim()) {
+        el.removeAttribute("aria-invalid");
+        /* quando o último inválido é corrigido, a mensagem sai */
+        if (!form.querySelector('[aria-invalid="true"]')) limparErroGeral();
+      }
+    }
+
+    OBRIGATORIOS.forEach(function (nome) {
+      var el = campo(nome);
+      if (!el) return;
+      el.addEventListener("input", function () { revalidar(el); });
+      el.addEventListener("change", function () { revalidar(el); });
+    });
 
     form.addEventListener("submit", function (ev) {
       ev.preventDefault();
@@ -214,52 +340,78 @@
       var mel = form.querySelector('[name="empresa"]');
       if (mel && mel.value) return;
 
-      var nome = valor("nome"), cidade = valor("cidade");
-      var assunto = valor("assunto"), texto = valor("mensagem");
-
-      var faltando = [];
-      if (!nome) faltando.push("seu nome");
-      if (!cidade) faltando.push("sua cidade");
-      if (!assunto) faltando.push("o tipo de problema");
-      if (!texto) faltando.push("uma descrição da situação");
+      var faltando = [], primeiroInvalido = null;
+      OBRIGATORIOS.forEach(function (nome) {
+        var el = campo(nome);
+        if (!valor(nome)) {
+          faltando.push(ROTULOS[nome]);
+          invalidar(el);
+          if (!primeiroInvalido) primeiroInvalido = el;
+        } else if (el) {
+          el.removeAttribute("aria-invalid");
+        }
+      });
 
       if (faltando.length) {
-        if (erro) erro.textContent = "Falta preencher: " + faltando.join(", ") + ".";
-        var primeiro = form.querySelector("[required]:invalid, [required][value='']");
-        if (primeiro && primeiro.focus) primeiro.focus();
+        mostrarErro("Falta preencher: " + faltando.join(", ") + ".");
+        if (primeiroInvalido && primeiroInvalido.focus) primeiroInvalido.focus();
         return;
       }
-      if (erro) erro.textContent = "";
+      limparErroGeral();
 
-      var msg = "Olá, Dr. Rodrigo. Meu nome é " + nome + ", de " + cidade + ".\n\n" +
-                "Assunto: " + assunto + "\n\n" + texto;
+      /* monta a ficha de triagem; campos opcionais vazios não entram */
+      function linha(rotulo, nomeCampo) {
+        var v = valor(nomeCampo);
+        return v ? rotulo + ": " + v + "\n" : "";
+      }
+      var msg =
+        "Olá, Dr. Rodrigo. Vim pelo site de Regularização de Carros Antigos e gostaria de solicitar a análise do meu caso.\n\n" +
+        "• Contato\n" +
+        linha("Nome", "nome") +
+        linha("Telefone", "telefone") +
+        linha("E-mail", "email") +
+        "Cidade/UF: " + valor("cidade") + "/" + valor("estado") + "\n" +
+        "\n• Veículo\n" +
+        "Marca e modelo: " + valor("marca") + " " + valor("modelo") + "\n" +
+        linha("Ano aproximado", "ano") +
+        linha("Placa", "placa") +
+        linha("Chassi", "chassi") +
+        linha("Motor", "motor") +
+        "\n• Histórico e situação\n" +
+        linha("Forma de aquisição", "aquisicao") +
+        linha("Proveniente de inventário", "inventario") +
+        linha("Antigo proprietário", "antigoDono") +
+        linha("Documento disponível", "documento") +
+        linha("Situação no Detran", "situacao") +
+        linha("Aparece no Renavam", "renavam") +
+        linha("Negativa formal do Detran", "negativa") +
+        "\n• Finalidade\n" + valor("finalidade") + "\n" +
+        "\n• Histórico do veículo\n" + valor("mensagem");
       var link = montarLink(msg);
       if (!link) {
-        if (erro) erro.textContent = "O WhatsApp ainda não foi configurado neste site.";
+        /* situação rara (HTML gerado com WhatsApp, config esvaziado
+           sem novo build): mensagem neutra, sem jargão técnico */
+        mostrarErro("Não foi possível preparar a mensagem agora. Tente pelo botão de WhatsApp da página.");
         return;
       }
 
-      evento("lead_form_submit", { assunto: assunto, button_location: "contato" });
+      evento("lead_form_submit", { finalidade: valor("finalidade"), aquisicao: valor("aquisicao"), button_location: "contato" });
       dispararConversaoAds((C.googleAdsConversionLabelFormulario || "").trim());
 
-      registrarLead({ nome: nome, cidade: cidade, assunto: assunto, campanha: dadosCampanha() });
+      registrarLead({ nome: valor("nome"), cidade: valor("cidade"), estado: valor("estado"), finalidade: valor("finalidade"), campanha: dadosCampanha() });
 
       window.open(link, "_blank", "noopener");
       /* a página de obrigado explica que ainda falta tocar em enviar */
       setTimeout(function () { location.href = "obrigado.html"; }, 250);
     });
-
-    function valor(campo) {
-      var el = form.querySelector('[name="' + campo + '"]');
-      return el && el.value ? el.value.trim() : "";
-    }
   }
 
   /* ============================================================
      7. registrarLead — ponto de extensão isolado
      Hoje não faz nada: não existe servidor, e o site não guarda
-     nada do que a pessoa escreve. Se um dia houver CRM, é aqui
-     que a chamada entra — e a política de privacidade muda junto.
+     nada do que a pessoa escreve (nem em localStorage, nem em
+     sessionStorage). Se um dia houver CRM, é aqui que a chamada
+     entra — e a política de privacidade muda junto.
      ============================================================ */
   async function registrarLead(dados) {
     return { enviado: false, motivo: "sem_backend", dados: dados };

@@ -1,19 +1,22 @@
 /* ==========================================================
-   FONTES — auto-hospedadas (mesmas famílias do original).
-   Motivo: velocidade (sem DNS/TLS para 2 domínios externos) e
-   LGPD (o Google Fonts registra o IP do visitante antes de
-   qualquer consentimento). Variáveis: wght 400–600 / 400–700.
+   FONTES — auto-hospedadas em assets/fontes/ (arquivos reais,
+   conferidos). Motivo: velocidade (sem DNS/TLS para domínios
+   externos) e LGPD (o Google Fonts registraria o IP do visitante
+   antes de qualquer consentimento). Os url() abaixo são relativos
+   a ESTE arquivo CSS, que já está em assets/ — por isso apontam
+   para "fontes/…", não "assets/fontes/…".
+   Variáveis: wght 400–600 (Newsreader) / 400–700 (Albert Sans).
 ========================================================== */
 @font-face{
-  font-family:"Newsreader";src:url("assets/fontes/newsreader-roman.woff2") format("woff2");
+  font-family:"Newsreader";src:url("fontes/newsreader-roman.woff2") format("woff2");
   font-weight:400 600;font-style:normal;font-display:swap;
 }
 @font-face{
-  font-family:"Newsreader";src:url("assets/fontes/newsreader-italic.woff2") format("woff2");
+  font-family:"Newsreader";src:url("fontes/newsreader-italic.woff2") format("woff2");
   font-weight:400 600;font-style:italic;font-display:swap;
 }
 @font-face{
-  font-family:"Albert Sans";src:url("assets/fontes/albert-sans.woff2") format("woff2");
+  font-family:"Albert Sans";src:url("fontes/albert-sans.woff2") format("woff2");
   font-weight:400 700;font-style:normal;font-display:swap;
 }
 
@@ -469,4 +472,123 @@ p.muted,.muted{color:var(--suave)}
   .faq details p{padding-right:24px}
   .marca-nome{font-size:1rem}
   .topo-inner{height:64px}
+}
+
+/* ============================================================
+   REPOSICIONAMENTO — CARROS ANTIGOS E DE COLEÇÃO
+   Novos componentes da página inicial. Mesmas variáveis, raios,
+   sombras e fontes já definidas acima. Nenhuma cor nova.
+============================================================ */
+
+/* ---------- etapas: variante com 5 passos ---------- */
+.etapas--5{grid-template-columns:repeat(5,1fr);gap:34px 22px}
+.etapas--5 .etapa::after{left:58px}
+@media(max-width:1080px){
+  .etapas--5{grid-template-columns:1fr 1fr}
+  .etapas--5 .etapa:nth-child(2n)::after{display:none}
+}
+@media(max-width:560px){
+  .etapas--5{grid-template-columns:1fr}
+  .etapas--5 .etapa::after{display:none}
+}
+
+/* ---------- para quem é: grade com marcador de latão ---------- */
+.publico{
+  list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:14px 30px;
+}
+.publico li{
+  display:flex;align-items:flex-start;gap:12px;
+  font-size:.98rem;color:var(--grafite);line-height:1.55;
+  padding:14px 16px;background:var(--folha);
+  border:1px solid var(--nevoa);border-radius:var(--raio);
+}
+.publico li::before{
+  content:"";flex:none;width:8px;height:8px;margin-top:9px;
+  background:linear-gradient(160deg,var(--latao-claro),var(--latao-escuro));
+  transform:rotate(45deg);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.35);
+}
+@media(max-width:960px){.publico{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.publico{grid-template-columns:1fr}}
+
+/* ---------- o que pode ser buscado: lista em duas colunas ---------- */
+.medidas{
+  list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px 30px;
+  background:var(--folha);border:1px solid var(--nevoa);border-radius:var(--raio);
+  padding:30px 32px;
+}
+.medidas li{display:flex;gap:10px;align-items:flex-start;font-size:.96rem;line-height:1.55}
+.medidas li svg{width:17px;height:17px;color:var(--latao);flex:none;margin-top:4px}
+@media(max-width:680px){.medidas{grid-template-columns:1fr;padding:24px 20px}}
+
+/* ---------- chamada intermediária ---------- */
+.cta-meio{
+  margin-top:34px;text-align:center;
+  border-top:1px solid var(--nevoa);border-bottom:1px solid var(--nevoa);
+  padding:34px 16px;display:grid;gap:18px;justify-items:center;
+}
+.cta-meio .serif{font-size:clamp(1.15rem,2.4vw,1.45rem);color:var(--pinheiro);font-style:italic;max-width:30em}
+
+/* ---------- por que especializada ---------- */
+.especial-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:56px;align-items:start}
+.decadas-titulo{
+  font-size:.78rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--latao-escuro);margin-bottom:14px;
+}
+.decadas{
+  list-style:none;display:grid;gap:0;
+  background:var(--folha);border:1px solid var(--nevoa);border-radius:var(--raio);
+  padding:8px 22px;
+}
+.decadas li{
+  padding:11px 0 11px 22px;position:relative;font-size:.94rem;color:var(--grafite);
+  border-bottom:1px solid var(--nevoa);
+}
+.decadas li:last-child{border-bottom:0}
+.decadas li::before{
+  content:"";position:absolute;left:2px;top:19px;width:7px;height:7px;
+  background:linear-gradient(160deg,var(--latao-claro),var(--latao-escuro));
+  transform:rotate(45deg);
+}
+@media(max-width:920px){.especial-grid{grid-template-columns:1fr;gap:36px}}
+
+/* ---------- outras situações (secundário, peso visual reduzido) ---------- */
+.secundarios-secao{padding:0 0 88px}
+.secundarios{
+  border:1px solid var(--nevoa);border-radius:var(--raio);
+  background:rgba(22,53,44,.03);
+  padding:30px 32px;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:26px 40px;align-items:start;
+}
+.secundarios-titulo{font-size:1.22rem}
+.secundarios .muted{font-size:.92rem;margin-top:8px}
+.secundarios ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:9px 26px}
+.secundarios li{
+  position:relative;padding-left:18px;font-size:.92rem;color:var(--suave);line-height:1.5;
+}
+.secundarios li::before{
+  content:"";position:absolute;left:0;top:.62em;width:7px;height:1px;background:var(--latao);
+}
+@media(max-width:880px){
+  .secundarios{grid-template-columns:1fr;padding:24px 22px}
+  .secundarios ul{grid-template-columns:1fr}
+}
+
+/* ---------- formulário de triagem: grupos e linhas ---------- */
+.form-grupo{
+  border:0;padding:18px 0 0;margin:0;display:grid;gap:16px;
+  border-top:1px solid var(--nevoa);
+  min-width:0;/* anula o min-content padrão de fieldset, que causaria rolagem horizontal no celular */
+}
+@media(max-width:720px){.secundarios-secao{padding-bottom:64px}}
+.form-grupo legend{
+  padding:0 12px 0 0;margin-bottom:2px;
+  font-size:.76rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--latao-escuro);
+}
+.form-linha{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:560px){.form-linha{grid-template-columns:1fr}}
+@media(max-width:360px){
+  .publico li{padding:12px 14px}
+  .medidas{padding:20px 16px}
+  .secundarios{padding:20px 16px}
 }

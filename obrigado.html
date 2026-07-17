@@ -2,10 +2,13 @@
 <html lang="pt-BR">
 <head>
 <!-- ============================================================
-  Regularização Veicular — Rodrigo Souza Filho (OAB/PR 95.516)
-  Dados de contato: TODOS ficam em config.js. Não edite este arquivo
-  para trocar telefone, e-mail ou domínio: preencha config.js e rode
-      node aplicar-config.js
+  Regularização Judicial de Carros Antigos — Rodrigo Souza Filho (OAB/PR 95.516)
+  Dados de contato: TODOS ficam em config.js. As páginas são geradas
+  a partir de modelos/ pelo build (npm run build), que o Vercel roda
+  sozinho a cada publicação no GitHub. Para trocar telefone, e-mail,
+  domínio ou o link do outro site: edite APENAS config.js e envie ao
+  GitHub — sem terminal, sem comando manual. Não edite os HTML da
+  raiz: qualquer build os sobrescreve a partir de modelos/.
 ============================================================ -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,20 +21,23 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="Rodrigo Souza Filho — Advocacia">
-<meta property="og:title" content="Veículo travado no Detran/PR? | Dr. Rodrigo Souza Filho — Advocacia">
-<meta property="og:description" content="Bloqueios, restrições, leilão, gravame e transferências negadas: análise individual do seu caso, pela via administrativa ou judicial.">
+<meta property="og:title" content="Regularização Judicial de Carros Antigos e de Coleção | Rodrigo Souza Filho — Advocacia">
+<meta property="og:description" content="Veículos antigos sem documentos, provenientes de inventário ou não localizados nas bases do DETRAN, BIN e RENAVAM. Estudo de viabilidade e atuação administrativa e judicial. Análise individual do caso.">
 <meta name="twitter:card" content="summary">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fontes/albert-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fontes/newsreader-roman.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/estilo.css">
-<script>document.documentElement.classList.add("js")</script>
+<script>/* modo-JS com failsafe: se assets/app.js não confirmar que rodou
+(bloqueio, erro de rede), a classe sai e todo o conteúdo fica visível.
+Animações são só aprimoramento progressivo. */
+(function(d){d.classList.add("js");setTimeout(function(){if(!window.__rsfOk)d.classList.remove("js")},1600)})(document.documentElement)</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "LegalService",
-  "name": "Dr. Rodrigo Souza Filho — Advocacia em Regularização Veicular",
-  "description": "Ações administrativas e judiciais para regularização de veículos junto ao Detran/PR: bloqueios, restrições, transferência, leilão, gravame e chassi.",
+  "name": "Rodrigo Souza Filho — Advocacia · Regularização de Carros Antigos e de Coleção",
+  "description": "Atuação administrativa e judicial na regularização de veículos antigos, clássicos e de coleção: carros sem CRV, DUT ou recibo, provenientes de inventário, com proprietário registral falecido, fora do RENAVAM ou com cadastro antigo, baixado ou não migrado nas bases do DETRAN e da BIN.",
   "areaServed": [
     "Curitiba",
     "Paraná"
@@ -43,11 +49,12 @@
     "addressCountry": "BR"
   },
   "knowsAbout": [
-    "Regularização de Veículos",
-    "Detran PR",
-    "Bloqueio de Veículo",
-    "Transferência de Propriedade",
-    "Mandado de Segurança",
+    "Regularização de carro antigo",
+    "Carro antigo sem documento",
+    "Veículo fora do RENAVAM",
+    "Carro de inventário sem documento",
+    "Reativação de cadastro de veículo antigo",
+    "Transferência de propriedade",
     "Direito Administrativo"
   ],
   "provider": {
@@ -67,7 +74,7 @@
   <div class="container topo-inner">
     <a class="marca" href="index.html" aria-label="Início — Dr. Rodrigo Souza Filho, advocacia">
       <span class="marca-mono" aria-hidden="true">RSF</span>
-      <span class="marca-nome">Rodrigo Souza Filho<small>Advocacia · Regularização Veicular</small></span>
+      <span class="marca-nome">Rodrigo Souza Filho<small>Advocacia · Carros Antigos e de Coleção</small></span>
     </a>
     <nav class="nav" aria-label="Navegação principal">
       <a href="index.html#situacoes">Situações</a>
@@ -107,7 +114,7 @@
       </div>
       <div>
         <p>Curitiba — Paraná</p>
-        <p style="margin-top:8px">Outra área de atuação: <a href="../direito-a-saude/index.html">Ações contra planos de saúde — Direito à Saúde</a></p>
+        <!-- URL do outro site vazia em config.js: o link não é publicado (nenhum link vazio ou relativo quebrado é gerado). -->
         <p style="margin-top:8px"><a href="privacidade.html">Política de privacidade</a> ·
           <a href="privacidade.html#cookies">Preferências de cookies</a></p>
       </div>
@@ -115,6 +122,35 @@
     <p class="rodape-aviso">Este site tem caráter exclusivamente informativo, em conformidade com o Código de Ética e Disciplina da OAB e com o Provimento nº 205/2021. As informações aqui apresentadas não constituem promessa de resultado: cada caso é analisado individualmente e o desfecho depende de circunstâncias próprias. © 2026 Rodrigo Souza Filho — Advocacia.</p>
   </div>
 </footer>
+
+<!-- Banner de consentimento — o MESMO das demais páginas, com ID exclusivo
+     #cookiesBanner (nunca reutilizado por título, parágrafo ou seção).
+     Permite aceitar, recusar e configurar; o botão "Rever preferências de
+     cookies" desta página reabre este painel. -->
+<div class="cookies" id="cookiesBanner" role="dialog" aria-labelledby="cookiesTit" hidden>
+  <h2 class="serif" id="cookiesTit">Cookies e medição</h2>
+  <p>Este site usa medição de audiência para saber quais anúncios trazem pessoas até aqui. Nada é medido antes
+    de você escolher. Dá para mudar de ideia depois, na <a href="privacidade.html#cookies">política de
+    privacidade</a>.</p>
+  <div class="cookies-opcoes" id="cookiesOpcoes" hidden>
+    <div class="cookies-opcao">
+      <input type="checkbox" id="ckNecessario" checked disabled>
+      <div><label for="ckNecessario">Necessários</label>
+        <p>Fazem o site funcionar e lembram a sua escolha aqui. Não podem ser desligados.</p></div>
+    </div>
+    <div class="cookies-opcao">
+      <input type="checkbox" id="ckMedicao">
+      <div><label for="ckMedicao">Medição e anúncios</label>
+        <p>Google Tag Manager e Google Ads: mostram quantas pessoas chegaram por cada anúncio.</p></div>
+    </div>
+  </div>
+  <div class="cookies-acoes">
+    <button class="btn btn-primario" type="button" id="ckAceitar">Aceitar</button>
+    <button class="btn btn-contorno" type="button" id="ckRecusar">Recusar</button>
+    <button class="btn btn-contorno" type="button" id="ckConfigurar">Configurar</button>
+    <button class="btn btn-primario" type="button" id="ckSalvar" hidden>Salvar escolhas</button>
+  </div>
+</div>
 
 <script src="config.js"></script>
 <script src="assets/app.js" defer></script>

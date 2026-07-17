@@ -1,186 +1,89 @@
-# Regularização Veicular — Rodrigo Souza Filho (OAB/PR 95.516)
+# Regularização Judicial de Carros Antigos — Rodrigo Souza Filho (OAB/PR 95.516)
 
-Landing page estática para campanha de Google Ads. Sem framework, sem build,
-sem dependência externa. É HTML, CSS e um arquivo de JavaScript.
-
----
-
-## 1. O que fazer antes de publicar (5 minutos)
-
-### Passo 1 — preencher `config.js`
-
-É o **único** arquivo com dados de contato. Abra e preencha:
-
-```js
-whatsapp: "5541988887777",        // 55 + DDD + número, só dígitos
-telefoneExibicao: "(41) 98888-7777",
-email: "contato@exemplo.adv.br",
-dominio: "exemplo.adv.br",        // sem https://, sem barra
-```
-
-### Passo 2 — rodar o script
-
-```bash
-node aplicar-config.js
-```
-
-O script grava os dados **dentro do HTML**. Isso é o que faz o botão de
-WhatsApp funcionar mesmo se o JavaScript não carregar — e é por isso que
-ele é obrigatório.
-
-> **Enquanto o `whatsapp` estiver vazio, nenhum botão de WhatsApp aparece
-> no site.** É de propósito: um botão que não funciona custa mais caro que
-> botão nenhum, ainda mais em página paga por clique. Um aviso visível na
-> página avisa o que falta. O aviso some quando você rodar o script.
-
-O script recusa dados que parecem errados: número com quantidade estranha de
-dígitos, domínio com `https://`, e-mail malformado, ID de Ads fora do padrão.
-
-### Passo 3 — publicar
-
-```bash
-npx vercel --prod
-```
-
-Ou arraste a pasta em vercel.com/new. O `vercel.json` já traz os cabeçalhos
-de segurança e o cache das fontes.
+Landing page estática para campanha de Google Ads, posicionada na especialidade
+principal do escritório: **regularização judicial de carros antigos, clássicos,
+históricos e de coleção** — veículos sem documentos, provenientes de inventário
+ou não localizados nas bases do DETRAN, BIN e RENAVAM. HTML, CSS e um arquivo de
+JavaScript — sem framework. **Você nunca precisa abrir terminal**: o Vercel
+executa o build sozinho a cada alteração enviada ao GitHub.
 
 ---
 
-## 2. Google Ads e Tag Manager
+## Como publicar uma alteração (o único fluxo que você precisa saber)
 
-Preencha em `config.js` e rode `node aplicar-config.js` de novo:
+1. Abra o arquivo **`config.js`** (no site do GitHub mesmo: clique no arquivo
+   e depois no lápis de editar).
+2. Preencha o campo desejado **entre as aspas** e salve (botão *Commit changes*).
+3. Aguarde 1–2 minutos: o Vercel percebe a mudança, roda o build e publica.
 
-```js
-googleTagManagerId: "GTM-XXXXXXX",
-googleAdsConversionId: "AW-XXXXXXXXX",
-googleAdsConversionLabelWhatsapp: "...",   // Ads > Objetivos > Conversões
-googleAdsConversionLabelFormulario: "...",
-```
+Nada além disso. Sem `node`, sem `npm`, sem comando manual.
 
-Regras que o código respeita sozinho:
+## Onde inserir cada dado (tudo em `config.js`)
 
-- Vazio = **não carrega nada**. Sem GTM, sem gtag, sem requisição ao Google.
-- Nenhuma tag carrega **antes do consentimento** de cookies.
-- Conversão do Ads só dispara com **ID + rótulo** preenchidos. Nunca há ID de
-  exemplo no código.
-
-### Eventos enviados ao `dataLayer`
-
-| Evento | Quando | Campos extras |
+| O que | Campo em `config.js` | Formato |
 |---|---|---|
-| `whatsapp_click` | clique em qualquer botão de WhatsApp | `button_location` |
-| `phone_click` | clique no telefone | `button_location` |
-| `lead_form_submit` | envio do formulário de triagem | `assunto` |
-| `faq_open` | abertura de uma pergunta | `faq_pergunta` |
-| `scroll_50` / `scroll_90` | metade / fim da página | — |
+| WhatsApp | `whatsapp` | 55 + DDD + número, só dígitos (12 ou 13 no total) |
+| Telefone exibido | `telefoneExibicao` | como deve aparecer na tela, com DDD |
+| E-mail | `email` | endereço completo |
+| Domínio deste site | `dominio` | sem `https://` e sem barra |
+| URL do site de Direito à Saúde | `urlDireitoSaude` | endereço completo, com `https://` |
+| URL do site de Regularização Veicular | `urlRegularizacaoVeicular` | endereço completo, com `https://` |
+| Google Tag Manager | `googleTagManagerId` | começa com `GTM-` |
+| Google Ads (conta) | `googleAdsConversionId` | começa com `AW-` |
+| Rótulo de conversão (WhatsApp) | `googleAdsConversionLabelWhatsapp` | rótulo gerado no Google Ads |
+| Rótulo de conversão (formulário) | `googleAdsConversionLabelFormulario` | rótulo gerado no Google Ads |
 
-Todos levam junto: `page_type` (`veicular`), `utm_source`, `utm_medium`,
-`utm_campaign`, `utm_content`, `utm_term`, `gclid`.
+**Enquanto um campo estiver vazio, o elemento que depende dele não aparece**
+— sem botão quebrado e sem mensagem técnica para o visitante:
 
-`button_location` assume: `cabecalho`, `hero`, `contato`, `barra_fixa`,
-`flutuante`, `obrigado`.
+- `whatsapp` vazio → nenhum botão de WhatsApp, nenhuma barra fixa, nenhum
+  botão flutuante e o formulário inteiro fica oculto (a única ação dele é
+  abrir o WhatsApp).
+- `urlDireitoSaude` / `urlRegularizacaoVeicular` vazios → o rodapé não mostra
+  o link "Outra área de atuação".
+- `googleTagManagerId` / `googleAdsConversionId` vazios → nenhum script do
+  Google é carregado.
 
-### Rastreamento de campanha
+Os avisos de "campo vazio" existem, mas **só para o desenvolvedor**: no log de
+build do Vercel e no console do navegador (F12).
 
-Ao chegar pelo anúncio, o site guarda `utm_*`, `gclid`, `gbraid` e `wbraid`
-(sessionStorage + localStorage, 90 dias) e embute uma linha discreta na
-mensagem do WhatsApp:
+## Primeira publicação (uma vez só)
 
-```
-Origem: Google Ads | Campanha: saude-liminar | Termo: plano negou cirurgia
-```
+1. Crie um repositório no GitHub e envie os arquivos deste projeto
+   (pode ser por *Add file → Upload files*, arrastando a pasta inteira).
+2. Em [vercel.com](https://vercel.com), *Add New → Project*, escolha o
+   repositório e clique em *Deploy*. O `vercel.json` já traz toda a
+   configuração (build automático e pasta de publicação `public/`).
+3. Depois de o outro site também estar no ar, copie a URL dele para o campo
+   correspondente em `config.js` — nos **dois** projetos — para o link
+   "Outra área de atuação" aparecer nos rodapés.
 
-Assim você sabe qual anúncio trouxe a pessoa, sem depender de o cliente contar.
-**Só dados de campanha são guardados** — nunca o que a pessoa escreveu.
+## Como o projeto se organiza
 
----
-
-## 3. Conversão offline (o que fazer com o lead depois)
-
-O Google Ads otimiza pelo que você mede. Se você medir só "clicou no
-WhatsApp", ele traz gente que clica — não gente que contrata. O caminho é
-importar conversões offline. Isto aqui **não** é um CRM: é o funil mínimo
-para o Ads aprender.
-
-Guarde numa planilha, a cada lead:
-
-| Coluna | Exemplo |
+| Arquivo/pasta | Papel |
 |---|---|
-| `gclid` | vem na mensagem do WhatsApp (linha "Origem") |
-| `data_hora` | 2026-07-16 14:32 |
-| `estagio` | `lead_recebido` |
+| `config.js` | **o único arquivo que você edita** |
+| `modelos/` | modelos das páginas; o build monta o site a partir deles |
+| `aplicar-config.js` | o script de build (o Vercel roda; você não precisa) |
+| `index.html`, `privacidade.html`, `obrigado.html` | páginas geradas — não edite: o build sobrescreve |
+| `public/` | criada pelo build; é o que o Vercel publica |
+| `assets/` | CSS, JavaScript, fontes e favicon |
 
-Estágios, em ordem:
+Quer conferir localmente antes de publicar? Opcional: `npm run build` na
+pasta do projeto e abra o `index.html`. Mas o fluxo normal dispensa isso.
 
-1. `lead_recebido` — chegou mensagem
-2. `lead_invalido` — engano, spam, outra área · `lead_sem_resposta` — sumiu
-3. `caso_potencialmente_viavel` — vale analisar
-4. `consulta_realizada` — conversou de fato
-5. `contrato_assinado` — virou cliente
+## Conformidade que o build garante
 
-Depois, em **Google Ads > Objetivos > Conversões > Importar**, suba a planilha
-com `gclid` + estágio. Comece importando `caso_potencialmente_viavel` e
-`contrato_assinado`. Em poucas semanas o Ads passa a procurar quem se parece
-com quem assinou, não com quem só clicou.
-
----
-
-## 4. Arquivos
-
-```
-regularizacao-veicular/
-├── index.html          página principal
-├── obrigado.html       confirmação (noindex) — não conta conversão sozinha
-├── privacidade.html    política de privacidade + preferências de cookies
-├── config.js           ← o único arquivo a editar
-├── aplicar-config.js   grava config.js dentro do HTML (node aplicar-config.js)
-├── vercel.json         cabeçalhos de segurança e cache
-├── .modelos/           modelos com marcações; o script lê daqui. Não apague.
-└── assets/
-    ├── estilo.css      identidade visual
-    ├── app.js          consentimento, medição, campanha, formulário
-    ├── favicon.svg     monograma RSF
-    └── fontes/         Newsreader + Albert Sans (auto-hospedadas)
-```
-
-### Trocar a foto
-
-Em `index.html`, procure por `foto-reservada`. O comentário logo acima traz o
-código pronto para colar no lugar. Arquivo sugerido:
-`assets/rodrigo-souza-filho.webp`, 720x900 px, até 120 KB.
-
----
-
-## 5. Limites que o código respeita (e por quê)
-
-Provimento nº 205/2021 e Código de Ética da OAB. O site **não** tem, e não
-deve ganhar:
-
-- promessa de resultado ou de prazo
-- número de casos, anos de atuação, taxa de êxito
-- depoimento de cliente, nota, estrela, avaliação
-- valor de honorário, desconto, "primeira consulta grátis"
-- contador regressivo, "últimas vagas", urgência artificial
-- comparação com outros advogados
-
-Se for acrescentar texto novo, o teste é simples: *isso informa ou isso
-vende?* Informar pode.
-
----
-
-## 6. Outra área
-
-Este projeto tem um irmão: **Direito à Saúde**, com a mesma identidade visual e a mesma estrutura. As duas pastas são independentes: cada uma tem o seu `config.js` e pode ser publicada em um domínio (ou subdomínio) diferente.
-
----
-
-## 7. Manutenção
-
-- **Trocar telefone/e-mail:** só em `config.js` + `node aplicar-config.js`.
-- **Trocar texto:** edite `.modelos/index.html` e rode o script de novo.
-  (Editar só `index.html` funciona, mas a mudança some no próximo `node
-  aplicar-config.js`, porque a página é remontada a partir do modelo.)
-- **Novas landing pages por termo** (ex.: "cirurgia negada", "transferência
-  negada"): copie a pasta, troque `<h1>`, `<title>`, a `mensagemWhatsapp` em
-  `config.js` e os cards. A estrutura foi feita para isso.
+- Sem promessa de resultado nos textos (Provimento 205/2021 OAB); ressalvas
+  de análise individual nas páginas.
+- Nenhum rastreador (GTM/Ads) carrega antes do consentimento; parâmetros de
+  campanha só persistem em `localStorage` **após** o aceite, por até 90 dias,
+  com data de coleta; recusa apaga o que houver.
+- O que o visitante escreve no formulário **nunca** é gravado — nem no
+  navegador, nem em servidor. Os campos de placa, chassi e motor da ficha de
+  triagem são opcionais e entram apenas na mensagem que o próprio visitante
+  envia pelo WhatsApp.
+- Aviso obrigatório junto ao formulário: o envio das informações não cria
+  automaticamente relação advogado-cliente nem representa garantia de
+  viabilidade ou resultado.
+- Conteúdo integral visível com JavaScript desativado.

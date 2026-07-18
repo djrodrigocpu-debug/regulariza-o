@@ -475,117 +475,120 @@ p.muted,.muted{color:var(--suave)}
 }
 
 /* ============================================================
-   DESTAQUE — CANCELAMENTO DE PLANO EMPRESARIAL (página inicial)
-   Seção de largura total, com presença maior que um card comum.
-   Composição editorial: coluna de texto sobre folha branca +
-   coluna escura (verde-pinheiro) com os sinais de atenção.
-   Só variáveis já existentes; o marcador dos itens repete o
-   motivo dos filetes duplos do eyebrow (identidade da casa).
+   REPOSICIONAMENTO — CARROS ANTIGOS E DE COLEÇÃO
+   Novos componentes da página inicial. Mesmas variáveis, raios,
+   sombras e fontes já definidas acima. Nenhuma cor nova.
 ============================================================ */
-.destaque-secao{padding-top:0}
-.destaque-cancelamento{
-  position:relative;display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);
-  background:var(--folha);border:1px solid var(--nevoa);border-radius:14px;
-  box-shadow:var(--sombra);overflow:hidden;
+
+/* ---------- etapas: variante com 5 passos ---------- */
+.etapas--5{grid-template-columns:repeat(5,1fr);gap:34px 22px}
+.etapas--5 .etapa::after{left:58px}
+@media(max-width:1080px){
+  .etapas--5{grid-template-columns:1fr 1fr}
+  .etapas--5 .etapa:nth-child(2n)::after{display:none}
 }
-/* filete de latão no topo: sinaliza destaque sem gritar */
-.destaque-cancelamento::before{
-  content:"";position:absolute;inset:0 0 auto 0;height:4px;z-index:1;
-  background:linear-gradient(90deg,var(--latao-claro),var(--latao) 45%,var(--latao-escuro));
-}
-.destaque-cancelamento__conteudo{padding:48px 48px 42px}
-.destaque-cancelamento__conteudo h2{max-width:16em}
-.destaque-cancelamento__emocional{margin-top:16px;font-size:1.04rem;line-height:1.7;color:var(--grafite);max-width:36em}
-.destaque-cancelamento__juridico{margin-top:12px;font-size:.97rem;line-height:1.65;color:var(--grafite);max-width:36em}
-.destaque-cancelamento__acoes{display:flex;flex-wrap:wrap;gap:14px;margin-top:26px}
-.destaque-cancelamento__nota{
-  margin-top:24px;font-size:.85rem;line-height:1.6;color:var(--suave);
-  border-left:2px solid var(--nevoa);padding-left:12px;max-width:42em;
-}
-.destaque-cancelamento__nota a{color:var(--pinheiro);font-weight:600;text-decoration:none;border-bottom:1px solid var(--latao)}
-.destaque-cancelamento__sinais{
-  position:relative;
-  background:
-    radial-gradient(440px 320px at 88% -12%,rgba(201,172,108,.18),transparent 65%),
-    var(--pinheiro);
-  color:var(--porcelana);padding:48px 40px;
-  display:flex;flex-direction:column;justify-content:center;
-}
-.destaque-cancelamento__sinais-rotulo{
-  display:flex;align-items:center;gap:12px;margin-bottom:12px;
-  font-size:.74rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--latao-claro);
-}
-.destaque-cancelamento__sinais-rotulo::before{
-  content:"";width:30px;height:5px;flex:none;
-  border-top:1px solid var(--latao-claro);border-bottom:1px solid var(--latao-claro);opacity:.7;
-}
-.destaque-cancelamento__sinais ul{list-style:none}
-.destaque-cancelamento__sinais li{
-  display:flex;gap:14px;align-items:flex-start;
-  padding:13px 0;font-size:.96rem;line-height:1.55;color:#EDF3ED;
-  border-bottom:1px solid rgba(237,243,237,.14);
-}
-.destaque-cancelamento__sinais li:last-child{border-bottom:none;padding-bottom:2px}
-.destaque-cancelamento__sinais li::before{
-  content:"";flex:none;width:22px;height:7px;margin-top:9px;
-  border-top:1px solid var(--latao-claro);border-bottom:1px solid var(--latao-claro);opacity:.85;
-}
-@media(max-width:920px){
-  .destaque-cancelamento{grid-template-columns:1fr}
-  .destaque-cancelamento__conteudo{padding:36px 28px 34px}
-  .destaque-cancelamento__sinais{padding:34px 28px 36px}
+@media(max-width:560px){
+  .etapas--5{grid-template-columns:1fr}
+  .etapas--5 .etapa::after{display:none}
 }
 
-/* ============================================================
-   PÁGINA — CANCELAMENTO DE PLANO DE SAÚDE EMPRESARIAL
-   Apoios de leitura longa (artigo), painéis de lista e faixa
-   final de chamada. Tudo com a paleta e as fontes existentes.
-============================================================ */
-.secao--seguida{padding-top:0}
-.hero--interna{padding:150px 0 66px}
-.hero--interna h1{margin:0 0 18px;max-width:16em}
-.hero--interna .lead{margin-bottom:26px;max-width:44em}
-.hero--interna .hero-ctas{margin-bottom:6px}
-.hero-ressalva{margin-top:16px;font-size:.9rem;color:var(--suave);max-width:46em}
+/* ---------- para quem é: grade com marcador de latão ---------- */
+.publico{
+  list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:14px 30px;
+}
+.publico li{
+  display:flex;align-items:flex-start;gap:12px;
+  font-size:.98rem;color:var(--grafite);line-height:1.55;
+  padding:14px 16px;background:var(--folha);
+  border:1px solid var(--nevoa);border-radius:var(--raio);
+}
+.publico li::before{
+  content:"";flex:none;width:8px;height:8px;margin-top:9px;
+  background:linear-gradient(160deg,var(--latao-claro),var(--latao-escuro));
+  transform:rotate(45deg);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.35);
+}
+@media(max-width:960px){.publico{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.publico{grid-template-columns:1fr}}
 
-.artigo{max-width:820px}
-.artigo h2{font-size:clamp(1.45rem,2.8vw,1.9rem);margin:46px 0 14px}
-.artigo h2:first-child{margin-top:0}
-.artigo p{color:var(--grafite)}
-.artigo p+p{margin-top:12px}
-.artigo strong{color:var(--pinheiro)}
-.artigo a{color:var(--pinheiro);font-weight:600;text-decoration:none;border-bottom:1px solid var(--latao)}
-.lista-simples{margin-top:14px;list-style:none;display:grid;gap:10px}
-.lista-simples li{display:flex;gap:10px;align-items:flex-start;font-size:.97rem;line-height:1.6;color:var(--grafite)}
-.lista-simples svg{width:16px;height:16px;color:var(--latao);flex:none;margin-top:6px}
+/* ---------- o que pode ser buscado: lista em duas colunas ---------- */
+.medidas{
+  list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px 30px;
+  background:var(--folha);border:1px solid var(--nevoa);border-radius:var(--raio);
+  padding:30px 32px;
+}
+.medidas li{display:flex;gap:10px;align-items:flex-start;font-size:.96rem;line-height:1.55}
+.medidas li svg{width:17px;height:17px;color:var(--latao);flex:none;margin-top:4px}
+@media(max-width:680px){.medidas{grid-template-columns:1fr;padding:24px 20px}}
 
-/* painel branco com lista em duas colunas (sinais / documentos) */
-.painel{background:var(--folha);border:1px solid var(--nevoa);border-radius:var(--raio);padding:38px 36px}
-.painel h2{font-size:clamp(1.4rem,2.6vw,1.8rem)}
-.painel>p{margin-top:10px;color:var(--suave);max-width:56em}
-.lista-marcas{margin-top:24px;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:13px 28px}
-.lista-marcas li{display:flex;gap:10px;align-items:flex-start;font-size:.95rem;line-height:1.55;color:var(--grafite)}
-.lista-marcas svg{width:17px;height:17px;color:var(--latao);flex:none;margin-top:4px}
-.painel-acoes{margin-top:26px;display:flex;flex-wrap:wrap;gap:14px;align-items:center}
-.painel .aviso{margin-top:24px}
-@media(max-width:640px){.lista-marcas{grid-template-columns:1fr}}
+/* ---------- chamada intermediária ---------- */
+.cta-meio{
+  margin-top:34px;text-align:center;
+  border-top:1px solid var(--nevoa);border-bottom:1px solid var(--nevoa);
+  padding:34px 16px;display:grid;gap:18px;justify-items:center;
+}
+.cta-meio .serif{font-size:clamp(1.15rem,2.4vw,1.45rem);color:var(--pinheiro);font-style:italic;max-width:30em}
 
-/* faixa final de chamada (fundo escuro, botão claro) */
-.band--cta{padding:78px 0}
-.band--cta .band-inner{max-width:780px}
-.band--cta h2{color:#EDF3ED;font-size:clamp(1.55rem,3vw,2.2rem);line-height:1.28}
-.band--cta p{margin-top:16px;color:rgba(237,243,237,.8);max-width:46em}
-.band--cta .btn{margin-top:28px}
-.btn-invertido{background:var(--porcelana);color:var(--pinheiro)}
-.btn-invertido:hover{background:#fff;transform:translateY(-2px);box-shadow:0 12px 26px rgba(0,0,0,.3)}
+/* ---------- por que especializada ---------- */
+.especial-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:56px;align-items:start}
+.decadas-titulo{
+  font-size:.78rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--latao-escuro);margin-bottom:14px;
+}
+.decadas{
+  list-style:none;display:grid;gap:0;
+  background:var(--folha);border:1px solid var(--nevoa);border-radius:var(--raio);
+  padding:8px 22px;
+}
+.decadas li{
+  padding:11px 0 11px 22px;position:relative;font-size:.94rem;color:var(--grafite);
+  border-bottom:1px solid var(--nevoa);
+}
+.decadas li:last-child{border-bottom:0}
+.decadas li::before{
+  content:"";position:absolute;left:2px;top:19px;width:7px;height:7px;
+  background:linear-gradient(160deg,var(--latao-claro),var(--latao-escuro));
+  transform:rotate(45deg);
+}
+@media(max-width:920px){.especial-grid{grid-template-columns:1fr;gap:36px}}
 
-/* telas muito estreitas: acréscimos desta versão */
+/* ---------- outras situações (secundário, peso visual reduzido) ---------- */
+.secundarios-secao{padding:0 0 88px}
+.secundarios{
+  border:1px solid var(--nevoa);border-radius:var(--raio);
+  background:rgba(22,53,44,.03);
+  padding:30px 32px;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:26px 40px;align-items:start;
+}
+.secundarios-titulo{font-size:1.22rem}
+.secundarios .muted{font-size:.92rem;margin-top:8px}
+.secundarios ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:9px 26px}
+.secundarios li{
+  position:relative;padding-left:18px;font-size:.92rem;color:var(--suave);line-height:1.5;
+}
+.secundarios li::before{
+  content:"";position:absolute;left:0;top:.62em;width:7px;height:1px;background:var(--latao);
+}
+@media(max-width:880px){
+  .secundarios{grid-template-columns:1fr;padding:24px 22px}
+  .secundarios ul{grid-template-columns:1fr}
+}
+
+/* ---------- formulário de triagem: grupos e linhas ---------- */
+.form-grupo{
+  border:0;padding:18px 0 0;margin:0;display:grid;gap:16px;
+  border-top:1px solid var(--nevoa);
+  min-width:0;/* anula o min-content padrão de fieldset, que causaria rolagem horizontal no celular */
+}
+@media(max-width:720px){.secundarios-secao{padding-bottom:64px}}
+.form-grupo legend{
+  padding:0 12px 0 0;margin-bottom:2px;
+  font-size:.76rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--latao-escuro);
+}
+.form-linha{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:560px){.form-linha{grid-template-columns:1fr}}
 @media(max-width:360px){
-  .destaque-cancelamento__conteudo{padding:28px 20px 26px}
-  .destaque-cancelamento__sinais{padding:28px 20px}
-  .destaque-cancelamento__acoes .btn{width:100%}
-  .painel{padding:26px 20px}
-  .painel-acoes .btn{width:100%}
-  .band--cta .btn{width:100%}
-  .hero--interna{padding:122px 0 52px}
+  .publico li{padding:12px 14px}
+  .medidas{padding:20px 16px}
+  .secundarios{padding:20px 16px}
 }

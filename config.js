@@ -1,5 +1,5 @@
 /* ============================================================
-   CONFIGURAÇÃO — Direito à Saúde
+   CONFIGURAÇÃO — Regularização Veicular
    Este é o ÚNICO arquivo a editar. Depois de preencher, envie a
    alteração ao GitHub e aguarde: o Vercel roda o build sozinho e
    aplica os dados no site. Não é preciso abrir terminal nem rodar
@@ -54,6 +54,6 @@ window.CONFIG = {
 
 /* Dados desta página — não precisa mexer. */
 window.PAGINA = {
-  tipo: "saude",
-  mensagemWhatsapp: "Olá, Dr. Rodrigo. Vim pelo site de Direito à Saúde. Meu plano negou uma cobertura e gostaria de saber quais documentos são necessários para analisar o caso."
+  tipo: "veicular",
+  mensagemWhatsapp: "Olá, Dr. Rodrigo. Vim pelo site de Regularização de Carros Antigos. Tenho um veículo antigo com pendência de documentação ou de cadastro e gostaria de solicitar a análise do caso."
 };

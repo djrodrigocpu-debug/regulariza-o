@@ -14,15 +14,12 @@
    1. lê config.js e valida os dados (dado errado interrompe o
       build com mensagem clara; dado VAZIO é permitido — o elemento
       correspondente simplesmente não aparece no site);
-   2. remonta index.html, cancelamento-plano-saude-empresarial.html,
-      privacidade.html e obrigado.html a partir de modelos/ (por isso
-      os HTML da raiz não devem ser editados à mão: qualquer build os
-      sobrescreve);
+   2. remonta index.html, privacidade.html e obrigado.html a partir
+      de modelos/ (por isso os HTML da raiz não devem ser editados
+      à mão: qualquer build os sobrescreve);
    3. grava o resultado na raiz (para conferência local) e em
       public/ (a pasta que o Vercel publica), junto com assets/ e
-      config.js;
-   4. gera robots.txt e sitemap.xml dentro de public/ — o sitemap só
-      quando há domínio em config.js, e só com as páginas indexáveis.
+      config.js.
 
    Condicionais nos modelos (fechamento leva o nome da chave, o que
    permite blocos aninhados de chaves diferentes):
@@ -34,18 +31,14 @@ const fs = require("fs");
 const path = require("path");
 const vm = require("vm");
 
-const PAGINAS = ["index.html", "cancelamento-plano-saude-empresarial.html", "privacidade.html", "obrigado.html"];
-
-/* Páginas indexáveis (entram no sitemap.xml). As demais — obrigado,
-   privacidade — são noindex e ficam de fora, de propósito. */
-const PAGINAS_INDEXAVEIS = ["/", "/cancelamento-plano-saude-empresarial"];
+const PAGINAS = ["index.html", "privacidade.html", "obrigado.html"];
 const MODELOS = path.join(__dirname, "modelos");
 const PUBLICO = path.join(__dirname, "public");
 
 /* Qual campo de config.js guarda o endereço do OUTRO site.
-   Neste projeto (Direito à Saúde), o outro site é o de
-   Regularização Veicular. */
-const CHAVE_URL_OUTRO = "urlRegularizacaoVeicular";
+   Neste projeto (Regularização Veicular), o outro site é o de
+   Direito à Saúde. */
+const CHAVE_URL_OUTRO = "urlDireitoSaude";
 
 function lerConfig() {
   const src = fs.readFileSync(path.join(__dirname, "config.js"), "utf8");
@@ -148,31 +141,6 @@ function copiarParaPublico() {
   fs.copyFileSync(path.join(__dirname, "config.js"), path.join(PUBLICO, "config.js"));
 }
 
-/* robots.txt + sitemap.xml — gerados só em public/ (a pasta publicada).
-   Sem domínio em config.js: o robots sai sem a linha "Sitemap:" e o
-   sitemap.xml nem é criado — nunca se publica URL fictícia ou token. */
-function gerarRobotsESitemap(cfg) {
-  const dom = (cfg.dominio || "").trim().replace(/\/+$/, "");
-  let robots = "User-agent: *\nAllow: /\n";
-  if (dom) robots += "\nSitemap: https://" + dom + "/sitemap.xml\n";
-  fs.writeFileSync(path.join(PUBLICO, "robots.txt"), robots, "utf8");
-  console.log("  ok  robots.txt" + (dom ? "" : " (sem linha Sitemap: domínio vazio)"));
-
-  if (!dom) {
-    console.log("  --  sitemap.xml não gerado (domínio vazio em config.js)");
-    return;
-  }
-  const base = "https://" + dom;
-  const xml = '<?xml version="1.0" encoding="UTF-8"?>\n' +
-    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
-    PAGINAS_INDEXAVEIS.map(function (u) {
-      return "  <url><loc>" + base + u + "</loc></url>";
-    }).join("\n") +
-    "\n</urlset>\n";
-  fs.writeFileSync(path.join(PUBLICO, "sitemap.xml"), xml, "utf8");
-  console.log("  ok  sitemap.xml (" + PAGINAS_INDEXAVEIS.length + " páginas indexáveis)");
-}
-
 function principal() {
   const cfg = lerConfig();
   const erros = validar(cfg);
@@ -201,8 +169,6 @@ function principal() {
     console.log("  ok  " + nome);
   });
   if (!tudoOk) process.exit(1);
-
-  gerarRobotsESitemap(cfg);
 
   /* Aviso para o DESENVOLVEDOR (console do build). O visitante do
      site nunca vê mensagem de configuração pendente: os elementos

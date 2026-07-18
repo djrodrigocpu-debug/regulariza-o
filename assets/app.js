@@ -290,19 +290,18 @@
   var form = doc.getElementById("formContato");
   if (form) {
     var erro = doc.getElementById("formErro");
-    var OBRIGATORIOS = ["nome", "cidade", "assunto", "mensagem"];
-    var ROTULOS = { nome: "seu nome", cidade: "sua cidade",
-                    assunto: "o tipo de problema", mensagem: "uma descrição da situação" };
-    /* Mesmos limites dos atributos maxlength do HTML. O maxlength já
-       impede digitar além; aqui o corte vale também para colagem e
-       para navegadores que ignorem o atributo. */
-    var LIMITES = { nome: 80, cidade: 100, mensagem: 1200 };
+    var OBRIGATORIOS = ["nome", "cidade", "estado", "marca", "modelo", "ano",
+                        "aquisicao", "inventario", "finalidade", "mensagem"];
+    var ROTULOS = { nome: "seu nome completo", cidade: "sua cidade", estado: "o estado",
+                    marca: "a marca do veículo", modelo: "o modelo do veículo",
+                    ano: "o ano aproximado", aquisicao: "a forma de aquisição",
+                    inventario: "se o veículo vem de inventário",
+                    finalidade: "a finalidade pretendida", mensagem: "o histórico do veículo" };
 
     function campo(nome) { return form.querySelector('[name="' + nome + '"]'); }
     function valor(nome) {
       var el = campo(nome);
-      var v = el && el.value ? el.value.trim() : "";
-      return LIMITES[nome] ? v.slice(0, LIMITES[nome]) : v;
+      return el && el.value ? el.value.trim() : "";
     }
 
     function mostrarErro(texto) {
@@ -360,8 +359,34 @@
       }
       limparErroGeral();
 
-      var msg = "Olá, Dr. Rodrigo. Meu nome é " + valor("nome") + ", de " + valor("cidade") + ".\n\n" +
-                "Assunto: " + valor("assunto") + "\n\n" + valor("mensagem");
+      /* monta a ficha de triagem; campos opcionais vazios não entram */
+      function linha(rotulo, nomeCampo) {
+        var v = valor(nomeCampo);
+        return v ? rotulo + ": " + v + "\n" : "";
+      }
+      var msg =
+        "Olá, Dr. Rodrigo. Vim pelo site de Regularização de Carros Antigos e gostaria de solicitar a análise do meu caso.\n\n" +
+        "• Contato\n" +
+        linha("Nome", "nome") +
+        linha("Telefone", "telefone") +
+        linha("E-mail", "email") +
+        "Cidade/UF: " + valor("cidade") + "/" + valor("estado") + "\n" +
+        "\n• Veículo\n" +
+        "Marca e modelo: " + valor("marca") + " " + valor("modelo") + "\n" +
+        linha("Ano aproximado", "ano") +
+        linha("Placa", "placa") +
+        linha("Chassi", "chassi") +
+        linha("Motor", "motor") +
+        "\n• Histórico e situação\n" +
+        linha("Forma de aquisição", "aquisicao") +
+        linha("Proveniente de inventário", "inventario") +
+        linha("Antigo proprietário", "antigoDono") +
+        linha("Documento disponível", "documento") +
+        linha("Situação no Detran", "situacao") +
+        linha("Aparece no Renavam", "renavam") +
+        linha("Negativa formal do Detran", "negativa") +
+        "\n• Finalidade\n" + valor("finalidade") + "\n" +
+        "\n• Histórico do veículo\n" + valor("mensagem");
       var link = montarLink(msg);
       if (!link) {
         /* situação rara (HTML gerado com WhatsApp, config esvaziado
@@ -370,15 +395,14 @@
         return;
       }
 
-      evento("lead_form_submit", { assunto: valor("assunto"), button_location: "contato" });
+      evento("lead_form_submit", { finalidade: valor("finalidade"), aquisicao: valor("aquisicao"), button_location: "contato" });
       dispararConversaoAds((C.googleAdsConversionLabelFormulario || "").trim());
 
-      registrarLead({ nome: valor("nome"), cidade: valor("cidade"), assunto: valor("assunto"), campanha: dadosCampanha() });
+      registrarLead({ nome: valor("nome"), cidade: valor("cidade"), estado: valor("estado"), finalidade: valor("finalidade"), campanha: dadosCampanha() });
 
       window.open(link, "_blank", "noopener");
-      /* a página de obrigado explica que ainda falta tocar em enviar
-         (URL limpa: o Vercel serve /obrigado com cleanUrls) */
-      setTimeout(function () { location.href = "/obrigado"; }, 250);
+      /* a página de obrigado explica que ainda falta tocar em enviar */
+      setTimeout(function () { location.href = "obrigado.html"; }, 250);
     });
   }
 

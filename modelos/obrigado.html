@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <!-- ============================================================
-  Regularização Judicial de Carros Antigos — Rodrigo Souza Filho (OAB/PR 95.516)
+  Direito à Saúde — Rodrigo Souza Filho (OAB/PR 95.516)
   Dados de contato: TODOS ficam em config.js. As páginas são geradas
   a partir de modelos/ pelo build (npm run build), que o Vercel roda
   sozinho a cada publicação no GitHub. Para trocar telefone, e-mail,
@@ -16,16 +16,16 @@
 <meta name="description" content="Conclua o contato enviando a mensagem no WhatsApp.">
 <meta name="theme-color" content="#16352C">
 <meta name="author" content="Rodrigo Souza Filho">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="noindex, follow">
 <!--SE:dominio-->
-<link rel="canonical" href="__URL__/obrigado.html">
-<meta property="og:url" content="__URL__/obrigado.html">
+<link rel="canonical" href="__URL__/obrigado">
+<meta property="og:url" content="__URL__/obrigado">
 <!--/SE:dominio-->
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="Rodrigo Souza Filho — Advocacia">
-<meta property="og:title" content="Regularização Judicial de Carros Antigos e de Coleção | Rodrigo Souza Filho — Advocacia">
-<meta property="og:description" content="Veículos antigos sem documentos, provenientes de inventário ou não localizados nas bases do DETRAN, BIN e RENAVAM. Estudo de viabilidade e atuação administrativa e judicial. Análise individual do caso.">
+<meta property="og:title" content="O plano de saúde negou o tratamento que você precisa? | Dr. Rodrigo Souza Filho — Advocacia">
+<meta property="og:description" content="Negativas de cirurgia, medicamento, terapia ou internação podem ser questionadas judicialmente. Em situações urgentes, pode ser avaliado um pedido de liminar. Análise individual do caso.">
 <meta name="twitter:card" content="summary">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fontes/albert-sans.woff2" as="font" type="font/woff2" crossorigin>
@@ -39,11 +39,12 @@ Animações são só aprimoramento progressivo. */
 {
   "@context": "https://schema.org",
   "@type": "LegalService",
-  "name": "Rodrigo Souza Filho — Advocacia · Regularização de Carros Antigos e de Coleção",
-  "description": "Atuação administrativa e judicial na regularização de veículos antigos, clássicos e de coleção: carros sem CRV, DUT ou recibo, provenientes de inventário, com proprietário registral falecido, fora do RENAVAM ou com cadastro antigo, baixado ou não migrado nas bases do DETRAN e da BIN.",
+  "name": "Dr. Rodrigo Souza Filho — Advocacia em Direito à Saúde",
+  "description": "Ações judiciais contra planos de saúde: negativas de cobertura, medicamentos de alto custo, terapias, home care, urgência e emergência, cancelamento de planos de saúde empresariais e continuidade de tratamento.",
   "areaServed": [
     "Curitiba",
-    "Paraná"
+    "Paraná",
+    "Brasil"
   ],
   "address": {
     "@type": "PostalAddress",
@@ -52,20 +53,22 @@ Animações são só aprimoramento progressivo. */
     "addressCountry": "BR"
   },
   "knowsAbout": [
-    "Regularização de carro antigo",
-    "Carro antigo sem documento",
-    "Veículo fora do RENAVAM",
-    "Carro de inventário sem documento",
-    "Reativação de cadastro de veículo antigo",
-    "Transferência de propriedade",
-    "Direito Administrativo"
+    "Direito à Saúde",
+    "Planos de Saúde",
+    "Negativa de Cobertura",
+    "Cancelamento de Plano de Saúde Empresarial",
+    "Continuidade de Tratamento",
+    "Planos Empresariais com Poucos Beneficiários",
+    "Liminar",
+    "Direito do Consumidor"
   ],
   "provider": {
     "@type": "Attorney",
     "name": "Rodrigo Souza Filho",
     "areaServed": [
       "Curitiba",
-      "Paraná"
+      "Paraná",
+      "Brasil"
     ]
   }
 }
@@ -75,16 +78,16 @@ Animações são só aprimoramento progressivo. */
 <a class="pular" href="#inicio">Pular para o conteúdo</a>
 <header class="topo" id="topo">
   <div class="container topo-inner">
-    <a class="marca" href="index.html" aria-label="Início — Dr. Rodrigo Souza Filho, advocacia">
+    <a class="marca" href="/" aria-label="Início — Dr. Rodrigo Souza Filho, advocacia">
       <span class="marca-mono" aria-hidden="true">RSF</span>
-      <span class="marca-nome">Rodrigo Souza Filho<small>Advocacia · Carros Antigos e de Coleção</small></span>
+      <span class="marca-nome">Rodrigo Souza Filho<small>Advocacia · Direito à Saúde</small></span>
     </a>
     <nav class="nav" aria-label="Navegação principal">
-      <a href="index.html#situacoes">Situações</a>
-      <a href="index.html#como-funciona">Como funciona</a>
-      <a href="index.html#sobre">Sobre</a>
-      <a href="index.html#duvidas">Dúvidas</a>
-      <!--SE:whatsapp--><a class="btn btn-primario" href="__WA:Olá, Dr. Rodrigo. Vim pelo site de Regularização de Carros Antigos. Tenho um veículo antigo com pendência de documentação ou de cadastro e gostaria de solicitar a análise do caso.__" data-zap data-msg="Olá, Dr. Rodrigo. Vim pelo site de Regularização de Carros Antigos. Tenho um veículo antigo com pendência de documentação ou de cadastro e gostaria de solicitar a análise do caso." data-local="cabecalho" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11.9 11.9 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.6 4.2 1.6 6L0 24l6.3-1.6c1.7.9 3.7 1.4 5.7 1.4 6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.4-8.4ZM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.86 9.86 0 0 1-1.5-5.3C2.2 6.4 6.6 2 12 2c2.6 0 5.1 1 6.9 2.9a9.7 9.7 0 0 1 2.9 7c0 5.5-4.4 9.9-9.8 9.9Zm5.4-7.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-1-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.2-.6-.4Z"/></svg>WhatsApp</a><!--/SE:whatsapp-->
+      <a href="/#situacoes">Situações</a>
+      <a href="/#como-funciona">Como funciona</a>
+      <a href="/#sobre">Sobre</a>
+      <a href="/#duvidas">Dúvidas</a>
+      <!--SE:whatsapp--><a class="btn btn-primario" href="__WA:Olá, Dr. Rodrigo. Vim pelo site de Direito à Saúde. Meu plano negou uma cobertura e gostaria de saber quais documentos são necessários para analisar o caso.__" data-zap data-msg="Olá, Dr. Rodrigo. Vim pelo site de Direito à Saúde. Meu plano negou uma cobertura e gostaria de saber quais documentos são necessários para analisar o caso." data-local="cabecalho" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11.9 11.9 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.6 4.2 1.6 6L0 24l6.3-1.6c1.7.9 3.7 1.4 5.7 1.4 6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.4-8.4ZM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.86 9.86 0 0 1-1.5-5.3C2.2 6.4 6.6 2 12 2c2.6 0 5.1 1 6.9 2.9a9.7 9.7 0 0 1 2.9 7c0 5.5-4.4 9.9-9.8 9.9Zm5.4-7.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-1-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.2-.6-.4Z"/></svg>WhatsApp</a><!--/SE:whatsapp-->
     </nav>
   </div>
 </header>
@@ -96,13 +99,13 @@ Animações são só aprimoramento progressivo. */
     <h1>Mensagem preparada.</h1>
     <p class="lead" style="margin:16px auto 30px">Para concluir o contato, <strong>envie a mensagem no
       WhatsApp</strong>. Ela ainda não foi enviada: está aberta no aplicativo, esperando o seu toque em enviar.</p>
-    <!--SE:whatsapp--><a class="btn btn-primario" href="__WA:Olá, Dr. Rodrigo. Vim pelo site de Regularização de Carros Antigos. Tenho um veículo antigo com pendência de documentação ou de cadastro e gostaria de solicitar a análise do caso.__" data-zap data-msg="Olá, Dr. Rodrigo. Vim pelo site de Regularização de Carros Antigos. Tenho um veículo antigo com pendência de documentação ou de cadastro e gostaria de solicitar a análise do caso." data-local="obrigado" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11.9 11.9 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.6 4.2 1.6 6L0 24l6.3-1.6c1.7.9 3.7 1.4 5.7 1.4 6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.4-8.4ZM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.86 9.86 0 0 1-1.5-5.3C2.2 6.4 6.6 2 12 2c2.6 0 5.1 1 6.9 2.9a9.7 9.7 0 0 1 2.9 7c0 5.5-4.4 9.9-9.8 9.9Zm5.4-7.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-1-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.2-.6-.4Z"/></svg>Abrir o WhatsApp novamente</a><!--/SE:whatsapp-->
+    <!--SE:whatsapp--><a class="btn btn-primario" href="__WA:Olá, Dr. Rodrigo. Vim pelo site de Direito à Saúde. Meu plano negou uma cobertura e gostaria de saber quais documentos são necessários para analisar o caso.__" data-zap data-msg="Olá, Dr. Rodrigo. Vim pelo site de Direito à Saúde. Meu plano negou uma cobertura e gostaria de saber quais documentos são necessários para analisar o caso." data-local="obrigado" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11.9 11.9 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.6 4.2 1.6 6L0 24l6.3-1.6c1.7.9 3.7 1.4 5.7 1.4 6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.4-8.4ZM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.86 9.86 0 0 1-1.5-5.3C2.2 6.4 6.6 2 12 2c2.6 0 5.1 1 6.9 2.9a9.7 9.7 0 0 1 2.9 7c0 5.5-4.4 9.9-9.8 9.9Zm5.4-7.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-1-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.2-.6-.4Z"/></svg>Abrir o WhatsApp novamente</a><!--/SE:whatsapp-->
     <ol class="obrigado-passos">
       <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Confira se a conversa abriu no WhatsApp com a mensagem escrita.</span></li>
       <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Toque em <strong>enviar</strong>. Só assim a mensagem chega ao advogado.</span></li>
       <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Se quiser, ajuste o texto antes de enviar, ou acrescente o que achar importante.</span></li>
     </ol>
-    <p class="muted" style="margin-top:26px;font-size:.9rem">Não abriu? <a href="index.html">Volte à página
+    <p class="muted" style="margin-top:26px;font-size:.9rem">Não abriu? <a href="/">Volte à página
       inicial</a> e tente novamente<!--SE:telefone-->, ou ligue para
       <a href="__TEL__" data-fone data-local="obrigado">__TEL_TXT__</a><!--/SE:telefone-->.</p>
   </div>
@@ -118,9 +121,9 @@ Animações são só aprimoramento progressivo. */
       </div>
       <div>
         <p>Curitiba — Paraná<!--SE:email--> · <a href="__EMAIL_LINK__">__EMAIL__</a><!--/SE:email--></p>
-        <!--SE:urlOutro--><p style="margin-top:8px">Outra área de atuação: <a href="__URL_OUTRO__">Ações contra planos de saúde — Direito à Saúde</a></p><!--/SE:urlOutro--><!--SENAO:urlOutro--><!-- URL do outro site vazia em config.js: o link não é publicado (nenhum link vazio ou relativo quebrado é gerado). --><!--/SENAO:urlOutro-->
-        <p style="margin-top:8px"><a href="privacidade.html">Política de privacidade</a> ·
-          <a href="privacidade.html#cookies">Preferências de cookies</a></p>
+        <!--SE:urlOutro--><p style="margin-top:8px">Outra área de atuação: <a href="__URL_OUTRO__">Regularização de veículos — Detran/PR</a></p><!--/SE:urlOutro--><!--SENAO:urlOutro--><!-- URL do outro site vazia em config.js: o link não é publicado (nenhum link vazio ou relativo quebrado é gerado). --><!--/SENAO:urlOutro-->
+        <p style="margin-top:8px"><a href="/privacidade">Política de privacidade</a> ·
+          <a href="/privacidade#cookies">Preferências de cookies</a></p>
       </div>
     </div>
     <p class="rodape-aviso">Este site tem caráter exclusivamente informativo, em conformidade com o Código de Ética e Disciplina da OAB e com o Provimento nº 205/2021. As informações aqui apresentadas não constituem promessa de resultado: cada caso é analisado individualmente e o desfecho depende de circunstâncias próprias. © 2026 Rodrigo Souza Filho — Advocacia.</p>
@@ -134,7 +137,7 @@ Animações são só aprimoramento progressivo. */
 <div class="cookies" id="cookiesBanner" role="dialog" aria-labelledby="cookiesTit" hidden>
   <h2 class="serif" id="cookiesTit">Cookies e medição</h2>
   <p>Este site usa medição de audiência para saber quais anúncios trazem pessoas até aqui. Nada é medido antes
-    de você escolher. Dá para mudar de ideia depois, na <a href="privacidade.html#cookies">política de
+    de você escolher. Dá para mudar de ideia depois, na <a href="/privacidade#cookies">política de
     privacidade</a>.</p>
   <div class="cookies-opcoes" id="cookiesOpcoes" hidden>
     <div class="cookies-opcao">

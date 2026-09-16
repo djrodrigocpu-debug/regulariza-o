@@ -16,14 +16,14 @@ window.CONFIG = {
   /* WhatsApp, só dígitos: 55 + DDD + número (12 ou 13 dígitos ao
      todo). Vazio = nenhum botão de WhatsApp aparece e o formulário
      fica oculto. */
-  whatsapp: "",
+  whatsapp: "5541988797835",
 
   /* Telefone como deve aparecer na tela, com DDD entre parênteses.
      Vazio = nenhum telefone é exibido. */
-  telefoneExibicao: "",
+  telefoneExibicao: "(41) 98879-7835",
 
   /* E-mail de contato. Vazio = nenhum e-mail é exibido. */
-  email: "",
+  email: "contato@rodrigosouzafilho.adv.br",
 
   /* Domínio final deste site, sem https:// e sem barra.
      Vazio = o site publica sem canonical/og:url. */

@@ -54,7 +54,7 @@ window.CONFIG = {
   /* ---- Google Tag Manager ----
      No formato GTM- seguido do código do contêiner.
      Vazio = o GTM nem chega a ser carregado. */
-  googleTagManagerId: ""
+  googleTagManagerId: "GTM-KL4XQVMT"
 };
 
 /* Dados desta página — não precisa mexer. */

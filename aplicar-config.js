@@ -27,7 +27,7 @@
    permite blocos aninhados de chaves diferentes):
        <!--SE:whatsapp--> ... <!--/SE:whatsapp-->
        <!--SENAO:email--> ... <!--/SENAO:email-->
-   Chaves: whatsapp, telefone, email, dominio, urlOutro.
+   Chaves: whatsapp, telefone, email, dominio, urlOutro, urlInstitucional.
 ============================================================ */
 const fs = require("fs");
 const path = require("path");
@@ -74,7 +74,7 @@ function validar(cfg) {
     if (!/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(em)) erros.push('email: "' + em + '" não parece um e-mail válido.');
     if (/seu-?dominio|exemplo\./i.test(em)) erros.push('email: "' + em + '" parece um e-mail de exemplo.');
   }
-  ["urlDireitoSaude", "urlRegularizacaoVeicular"].forEach(function (chave) {
+  ["urlDireitoSaude", "urlRegularizacaoVeicular", "urlInstitucional"].forEach(function (chave) {
     const u = (cfg[chave] || "").trim();
     if (!u) return;
     if (!/^https:\/\/[^\s"'<>]+$/i.test(u)) erros.push(chave + ': use o endereço completo, começando com https:// e sem espaços.');
@@ -97,12 +97,14 @@ function escapeRegExp(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
 /* motor de tokens: condicionais com fechamento nomeado + substituições */
 function resolver(txt, cfg) {
   const urlOutro = (cfg[CHAVE_URL_OUTRO] || "").trim().replace(/\/+$/, "");
+  const urlInst = (cfg.urlInstitucional || "").trim().replace(/\/+$/, "");
   const tem = {
     whatsapp: !!(cfg.whatsapp || "").trim(),
     telefone: !!(cfg.telefoneExibicao || "").trim(),
     email: !!(cfg.email || "").trim(),
     dominio: !!(cfg.dominio || "").trim(),
-    urlOutro: !!urlOutro
+    urlOutro: !!urlOutro,
+    urlInstitucional: !!urlInst
   };
   for (const chave of Object.keys(tem)) {
     const k = escapeRegExp(chave);
@@ -127,12 +129,15 @@ function resolver(txt, cfg) {
   if (tem.urlOutro) {
     txt = txt.split("__URL_OUTRO__").join(urlOutro);
   }
+  if (tem.urlInstitucional) {
+    txt = txt.split("__URL_INSTITUCIONAL__").join(urlInst);
+  }
   return txt;
 }
 
 /* nenhum marcador pode sobrar no HTML publicado */
 function conferirSobras(nome, txt) {
-  const sobras = txt.match(/<!--\/?(?:SE|SENAO):[a-zA-Z]+-->|__(?:WA:|TEL__|TEL_TXT__|EMAIL__|EMAIL_LINK__|URL__|URL_OUTRO__)/g);
+  const sobras = txt.match(/<!--\/?(?:SE|SENAO):[a-zA-Z]+-->|__(?:WA:|TEL__|TEL_TXT__|EMAIL__|EMAIL_LINK__|URL__|URL_OUTRO__|URL_INSTITUCIONAL__)/g);
   if (sobras) {
     console.error("  ATENÇÃO em " + nome + ": marcadores não resolvidos: " + Array.from(new Set(sobras)).join(", "));
     return false;
@@ -212,6 +217,7 @@ function principal() {
   if (!(cfg.email || "").trim()) faltando.push("email — nenhum e-mail é exibido");
   if (!(cfg.dominio || "").trim()) faltando.push("dominio — sem canonical nem og:url (prejudica o SEO)");
   if (!(cfg[CHAVE_URL_OUTRO] || "").trim()) faltando.push(CHAVE_URL_OUTRO + " — o rodapé não mostra o link para a outra área");
+  if (!(cfg.urlInstitucional || "").trim()) faltando.push("urlInstitucional — o rodapé não mostra o link para o site institucional");
   if (!(cfg.googleTagManagerId || "").trim()) faltando.push("googleTagManagerId — o GTM não carrega");
   if (!(cfg.googleAdsConversionId || "").trim()) faltando.push("googleAdsConversionId — nenhuma conversão vai ao Ads");
   if (!(cfg.googleAdsConversionLabelWhatsapp || "").trim()) faltando.push("googleAdsConversionLabelWhatsapp");

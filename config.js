@@ -36,6 +36,11 @@ window.CONFIG = {
   urlDireitoSaude: "https://saude.rodrigosouzafilho.adv.br",
   urlRegularizacaoVeicular: "",
 
+  /* ---- Site institucional ----
+     Endereço COMPLETO (com https://) do site principal. Enquanto
+     estiver vazio, o link "Site institucional" não aparece no rodapé. */
+  urlInstitucional: "https://www.rodrigosouzafilho.adv.br",
+
   /* ---- Google Ads ----
      ID da conta, no formato AW- seguido dos dígitos da conta.
      Vazio = nenhuma conversão é enviada. */

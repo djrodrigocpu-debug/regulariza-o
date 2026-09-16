@@ -315,21 +315,21 @@ p.muted,.muted{color:var(--suave)}
 .pular:focus{top:0}
 
 /* ---------- foto reservada (no lugar da placa, quando houver) ---------- */
-.foto-reservada{
+/* Retrato profissional emoldurado (seção Sobre): mesmo cartão da
+   identidade — superfície branca, borda névoa, sombra — servindo de
+   passe-partout, com legenda-placa em filete duplo de latão. Idêntico
+   ao site institucional; aqui a moldura ocupa a coluna da foto (360px). */
+.foto-quadro{
   width:min(360px,100%);margin-left:auto;
-  aspect-ratio:4/5;border-radius:12px;
-  background:
-    repeating-linear-gradient(135deg,rgba(165,133,76,.05) 0 12px,transparent 12px 24px),
-    var(--folha);
-  border:1px solid var(--nevoa);
-  display:grid;place-content:center;gap:10px;text-align:center;padding:32px 26px;
+  background:var(--folha);border:1px solid var(--nevoa);border-radius:14px;
+  box-shadow:var(--sombra);padding:12px;
 }
-.foto-reservada svg{width:34px;height:34px;color:var(--latao);margin:0 auto;opacity:.85}
-.foto-reservada p{font-size:.86rem;color:var(--suave);line-height:1.55;max-width:24em}
-.foto-reservada .foto-rot{
-  font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--latao-escuro);
-}
-@media(max-width:920px){.foto-reservada{margin:0 auto}}
+.foto-quadro img{display:block;width:100%;height:auto;border-radius:9px;background:var(--nevoa)}
+.foto-legenda{padding:16px 6px 6px;text-align:center}
+.foto-fio{display:block;width:64px;height:5px;margin:0 auto 12px;border-top:1px solid var(--latao);border-bottom:1px solid var(--latao);opacity:.55}
+.foto-linha{display:block;font-size:.8rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--pinheiro)}
+.foto-linha-area{margin-top:5px;font-family:var(--serif);font-style:italic;font-weight:500;font-size:.95rem;letter-spacing:.02em;text-transform:none;color:var(--latao-escuro)}
+@media(max-width:920px){.foto-quadro{margin:0 auto}}
 
 /* ---------- avisos e selos ---------- */
 .aviso{
@@ -592,3 +592,25 @@ p.muted,.muted{color:var(--suave)}
   .medidas{padding:20px 16px}
   .secundarios{padding:20px 16px}
 }
+
+/* ---------- utilitários ----------
+   Substituem os antigos atributos style="" dos modelos, removidos para
+   permitir uma CSP com style-src 'self'. O !important reproduz a
+   precedência que o atributo inline tinha. Gerados a partir das
+   declarações originais. ---------- */
+.u-fs-0-9rem{font-size:.9rem!important}
+.u-jc-center{justify-content:center!important}
+.u-m-16-auto-30{margin:16px auto 30px!important}
+.u-maxw-46em{max-width:46em!important}
+.u-maxw-62em{max-width:62em!important}
+.u-mb-22{margin-bottom:22px!important}
+.u-mt-12{margin-top:12px!important}
+.u-mt-14{margin-top:14px!important}
+.u-mt-18{margin-top:18px!important}
+.u-mt-2{margin-top:2px!important}
+.u-mt-20{margin-top:20px!important}
+.u-mt-26{margin-top:26px!important}
+.u-mt-34{margin-top:34px!important}
+.u-mt-8{margin-top:8px!important}
+.u-p-0{padding:0!important}
+.u-pt-0{padding-top:0!important}

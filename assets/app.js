@@ -424,8 +424,9 @@
       registrarLead({ nome: valor("nome"), cidade: valor("cidade"), estado: valor("estado"), finalidade: valor("finalidade"), campanha: dadosCampanha() });
 
       window.open(link, "_blank", "noopener");
-      /* a página de obrigado explica que ainda falta tocar em enviar */
-      setTimeout(function () { location.href = "obrigado.html"; }, 250);
+      /* a página de obrigado explica que ainda falta tocar em enviar
+         (URL limpa: o Vercel serve /obrigado com cleanUrls) */
+      setTimeout(function () { location.href = "/obrigado"; }, 250);
     });
   }
 

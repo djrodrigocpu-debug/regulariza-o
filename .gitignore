@@ -1,0 +1,4 @@
+# Gerado pelo build (npm run build). Não precisa ir para o GitHub:
+# o Vercel recria esta pasta a cada publicação.
+public/
+node_modules/

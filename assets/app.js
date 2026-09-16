@@ -10,7 +10,8 @@
 
    O que ele faz:
    1. consentimento de cookies (nada de medição antes)
-   2. Google Tag Manager, só depois do "aceitar"
+   2. Google Tag Manager, só depois do "aceitar" (Consent Mode v2:
+      sinal "negado" por padrão, "concedido" após o aceite)
    3. origem da campanha (utm_*, gclid, gbraid, wbraid):
       - SEM consentimento: só memória + sessionStorage (a visita)
       - COM consentimento de medição: localStorage por até 90 dias,
@@ -41,6 +42,27 @@
   var doc = document;
 
   window.dataLayer = window.dataLayer || [];
+
+  /* ------------------------------------------------------------
+     Consent Mode v2 (Google). O padrão é "negado" para tudo e é
+     enviado ANTES de qualquer tag do Google existir na página.
+     Só muda para "concedido" quando a pessoa aceita a medição.
+     Sem aceite, nenhuma tag carrega; o sinal serve para que o
+     Google Ads e o Analytics saibam que houve recusa.
+  ------------------------------------------------------------ */
+  if (typeof window.gtag !== "function") {
+    window.gtag = function () { window.dataLayer.push(arguments); };
+  }
+  window.gtag("consent", "default", {
+    ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied",
+    analytics_storage: "denied", wait_for_update: 500
+  });
+  function atualizarConsentGoogle(concedido) {
+    var v = concedido ? "granted" : "denied";
+    window.gtag("consent", "update", {
+      ad_storage: v, ad_user_data: v, ad_personalization: v, analytics_storage: v
+    });
+  }
 
   /* ------------------------------------------------------------
      Aviso técnico — só no console, nunca na página (o visitante
@@ -104,6 +126,7 @@
     consent = { v: 1, medicao: !!medicao, data: new Date().toISOString() };
     try { localStorage.setItem(CHAVE_CONSENT, JSON.stringify(consent)); } catch (e) {}
     fecharBanner();
+    atualizarConsentGoogle(!!medicao);
     if (medicao) {
       persistirCampanha();  /* agora pode ir para o localStorage */
       carregarGTM();
@@ -142,7 +165,7 @@
     s.src = "https://www.googletagmanager.com/gtm.js?id=" + encodeURIComponent(id);
     doc.head.appendChild(s);
   }
-  if (podeMedir()) carregarGTM();
+  if (podeMedir()) { atualizarConsentGoogle(true); carregarGTM(); }
 
   /* ============================================================
      3. ORIGEM DA CAMPANHA

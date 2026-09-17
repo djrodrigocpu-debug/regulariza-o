@@ -298,6 +298,11 @@ p.muted,.muted{color:var(--suave)}
    formulário (não existe equivalente na paleta original). */
 :root{--erro:#8C2F1F}
 
+/* link de texto no hero para a seção Sobre (aparece também no celular,
+   onde o menu some) */
+.link-sobre{color:var(--pinheiro);font-weight:600;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.link-sobre:hover{color:var(--latao-escuro)}
+
 /* ---------- utilitários ---------- */
 [hidden]{display:none !important}
 .so-leitor{

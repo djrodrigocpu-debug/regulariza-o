@@ -17,7 +17,10 @@
       - COM consentimento de medição: localStorage por até 90 dias,
         com data da coleta registrada e limpeza do que expirou
       - se recusar: o que houver em localStorage é apagado
-   4. personaliza a mensagem do WhatsApp com a origem
+   4. personaliza a mensagem do WhatsApp com a origem e com o
+      identificador do clique do Google Ads (gclid/wbraid/gbraid),
+      que permite registrar depois, como conversão off-line, o
+      contato que virou caso viável ou contrato
    5. eventos de medição no dataLayer (só com consentimento)
    6. formulário de triagem -> mensagem pronta no WhatsApp,
       com validação acessível (aria-invalid, foco, role=alert)
@@ -237,6 +240,13 @@
     if (campanha.utm_campaign) partes.push("Campanha: " + campanha.utm_campaign);
     if (campanha.utm_term) partes.push("Termo: " + campanha.utm_term);
     if (campanha.utm_content) partes.push("Anúncio: " + campanha.utm_content);
+    /* Identificador do clique do Google Ads (gclid; no iPhone, wbraid ou
+       gbraid). Entra como "Ref:" para o escritório poder casar, depois,
+       o contato que virou caso viável ou contrato com o anúncio de
+       origem (conversão off-line). A pessoa vê a linha na caixa de
+       texto e pode apagá-la antes de enviar. */
+    var ref = campanha.gclid || campanha.wbraid || campanha.gbraid;
+    if (ref) partes.push("Ref: " + ref);
     return partes.length ? partes.join(" | ") : "";
   }
 

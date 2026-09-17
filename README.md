@@ -87,3 +87,36 @@ pasta do projeto e abra o `index.html`. Mas o fluxo normal dispensa isso.
   automaticamente relação advogado-cliente nem representa garantia de
   viabilidade ou resultado.
 - Conteúdo integral visível com JavaScript desativado.
+
+## Conversões off-line (sucesso real)
+
+O site mede automaticamente dois níveis de contato: o clique no WhatsApp
+(`whatsapp_click`) e o envio do formulário (`lead_form_submit`). O que o site
+não consegue saber é se a conversa virou caso viável ou contrato. Isso só o
+escritório sabe, e é registrado à parte, na planilha
+`conversoes-offline-rsf.xlsx`, e enviado ao Google Ads uma vez por mês como
+"conversão off-line". Assim o Ads aprende quais anúncios trazem cliente de
+verdade, e não só cliques.
+
+Como funciona:
+
+1. Quem chega por um anúncio do Google e clica no WhatsApp (ou envia o
+   formulário) leva, no fim da mensagem, uma etiqueta como
+   `[Origem: Google Ads | Campanha: ... | Ref: EAIaIQob...]`. O `Ref:` é o
+   identificador do clique (gclid; no iPhone, wbraid ou gbraid). A pessoa vê e
+   pode apagar; sem ele, o contato só conta nos níveis automáticos.
+2. Ao receber a mensagem, o escritório copia o `Ref:` para a aba "Contatos" da
+   planilha, junto com a data e a etapa (Recebido, Caso viável, Contrato
+   assinado, Sem interesse). Nomes ficam só nessa aba.
+3. Uma vez por mês, os contatos que viraram "Caso viável" ou "Contrato
+   assinado" são copiados para a aba "Exportar para o Ads" (só o Ref, o nome da
+   conversão e a data/hora; nunca nomes) e enviados em Google Ads > Objetivos >
+   Conversões > Uploads. Prazo: o Ads só aceita conversões até 90 dias depois
+   do clique.
+
+No Google Ads, as duas ações de conversão precisam existir com estes nomes
+exatos, criadas como "Importar > Outras fontes de dados ou CRMs > Acompanhar
+conversões de cliques": `Caso viável` e `Contrato assinado`.
+
+A Política de Privacidade do site (Carros Antigos) informa que o código do
+anúncio pode entrar na mensagem enviada pelo próprio visitante.

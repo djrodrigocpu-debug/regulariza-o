@@ -204,13 +204,33 @@ Animações são só aprimoramento progressivo. */
       <p class="muted reveal u-mt-20 u-fs-0-9rem">Cada caso depende de suas provas e circunstâncias. A análise é sempre individual. <a class="link-sobre" href="#sobre">Sobre o advogado</a></p>
     </div>
     <div class="reveal">
-      <div class="placa" role="img" aria-label="Placa de latão: Rodrigo Souza Filho, advogado, OAB/PR 95.516, Carros Antigos e de Coleção">
-        <div class="placa-mono">RSF</div>
-        <div class="placa-nome">Rodrigo Souza Filho</div>
-        <div class="placa-fio"></div>
-        <div class="placa-tit">Advogado · OAB/PR 95.516</div>
-        <div class="placa-area">Carros Antigos e de Coleção</div>
-      </div>
+      <!-- ==========================================================
+        FOTOGRAFIA DO TOPO — carro antigo real, na mesma moldura do
+        retrato da seção Sobre. A legenda é neutra, de propósito: a foto
+        ilustra o tema e não identifica dono nem veículo (Provimento
+        205/2021, art. 6º, parágrafo único). Para TROCAR a foto: gere
+        novas versões nos mesmos tamanhos (480 e 720 px de largura,
+        proporção 4:3, em .webp e .jpg) com os mesmos nomes em
+        assets/images/ — nada mais precisa mudar.
+      ========================================================== -->
+      <figure class="foto-quadro foto-quadro--carro">
+        <picture>
+          <source type="image/webp"
+                  srcset="assets/images/sedan-classico-azul-480.webp 480w,
+                          assets/images/sedan-classico-azul-720.webp 720w"
+                  sizes="(max-width: 920px) min(calc(100vw - 74px), 414px), 397px">
+          <img src="assets/images/sedan-classico-azul-720.jpg"
+               srcset="assets/images/sedan-classico-azul-480.jpg 480w,
+                       assets/images/sedan-classico-azul-720.jpg 720w"
+               sizes="(max-width: 920px) min(calc(100vw - 74px), 414px), 397px"
+               width="720" height="540" decoding="async"
+               alt="Sedã clássico azul dos anos 1960, com grade e para-choques cromados, diante de uma cerca-viva">
+        </picture>
+        <figcaption class="foto-legenda">
+          <span class="foto-fio" aria-hidden="true"></span>
+          <span class="foto-linha foto-linha-area">Carros antigos, clássicos e de coleção</span>
+        </figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -326,10 +346,31 @@ Animações são só aprimoramento progressivo. */
 <!-- ================= PARA QUEM É ================= -->
 <section class="secao" id="para-quem">
   <div class="container">
-    <div class="secao-cab reveal">
-      <p class="eyebrow">Para quem é este serviço</p>
-      <h2>Quem costuma chegar com esses casos</h2>
-      <p class="muted">Pessoas diferentes, o mesmo problema de fundo: um automóvel com história e origem legítima que os sistemas atuais não reconhecem.</p>
+    <div class="publico-cab">
+      <div class="secao-cab reveal">
+        <p class="eyebrow">Para quem é este serviço</p>
+        <h2>Quem costuma chegar com esses casos</h2>
+        <p class="muted">Pessoas diferentes, o mesmo problema de fundo: um automóvel com história e origem legítima que os sistemas atuais não reconhecem.</p>
+      </div>
+      <!-- Segunda fotografia (carro antigo real, sem legenda), ao lado do
+           título desta seção. Mesmos tamanhos e nomes que a do topo, com a
+           largura extra de 940 px. -->
+      <figure class="foto-quadro foto-quadro--carro reveal">
+        <picture>
+          <source type="image/webp"
+                  srcset="assets/images/sedan-classico-prata-480.webp 480w,
+                          assets/images/sedan-classico-prata-720.webp 720w,
+                          assets/images/sedan-classico-prata-940.webp 940w"
+                  sizes="(max-width: 920px) min(calc(100vw - 74px), 414px), 397px">
+          <img src="assets/images/sedan-classico-prata-720.jpg"
+               srcset="assets/images/sedan-classico-prata-480.jpg 480w,
+                       assets/images/sedan-classico-prata-720.jpg 720w,
+                       assets/images/sedan-classico-prata-940.jpg 940w"
+               sizes="(max-width: 920px) min(calc(100vw - 74px), 414px), 397px"
+               width="940" height="705" loading="lazy" decoding="async"
+               alt="Sedã prata dos anos 1980, com os faróis acesos, estacionado diante de uma cerca-viva">
+        </picture>
+      </figure>
     </div>
     <ul class="publico reveal">
       <li>Colecionadores de veículos</li>

@@ -619,3 +619,13 @@ p.muted,.muted{color:var(--suave)}
 .u-mt-8{margin-top:8px!important}
 .u-p-0{padding:0!important}
 .u-pt-0{padding-top:0!important}
+
+/* ---------- fotografias de carro antigo (topo e "Para quem é") ----------
+   Mesma moldura do retrato (.foto-quadro), um pouco mais larga, para
+   ocupar a coluna que era da placa de latão. Na seção "Para quem é" a
+   foto fica à direita do título (grade 7/5 como a do topo); no celular
+   vem logo abaixo do título, antes da lista. Nenhuma cor nova. ---------- */
+.foto-quadro--carro{width:min(440px,100%)}
+.publico-cab{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:32px 56px;align-items:center;margin-bottom:46px}
+.publico-cab .secao-cab{margin-bottom:0}
+@media(max-width:920px){.publico-cab{grid-template-columns:1fr}}

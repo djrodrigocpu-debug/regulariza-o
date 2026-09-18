@@ -119,6 +119,9 @@ p.muted,.muted{color:var(--suave)}
 .btn-primario:hover{background:var(--pinheiro-2);transform:translateY(-2px);box-shadow:0 10px 24px rgba(22,53,44,.22)}
 .btn-contorno{border-color:var(--pinheiro);color:var(--pinheiro);background:transparent}
 .btn-contorno:hover{background:var(--pinheiro);color:var(--porcelana);transform:translateY(-2px)}
+/* Botão primário dentro do menu e do bloco de contato: os seletores .nav a e .contato-alt a
+   são mais específicos que .btn-primario e herdavam cor de link (texto escuro sobre fundo escuro). */
+.nav .btn-primario,.nav .btn-primario:hover,.contato-alt .btn-primario,.contato-alt .btn-primario:hover{color:var(--porcelana);border-bottom-color:transparent}
 .btn:focus-visible,a:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid var(--latao);outline-offset:3px;border-radius:6px}
 
 /* ---------- hero ---------- */

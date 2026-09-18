@@ -42,8 +42,8 @@ modelos o link fica limpo (`assets/estilo.css`); nunca fixar `?v=` à mão.
 
 ## Antes de mexer
 
-- `git fetch` e conferir se a cópia local está atrás do GitHub. O repositório
-  está clonado em mais de uma pasta da máquina e o trabalho alterna entre elas.
+- `git fetch` e conferir se a cópia local está atrás do GitHub antes de ler ou
+  editar: o dono trabalha em mais de uma sessão ao mesmo tempo.
 - A decisão é sempre do dono. Planejar não autoriza implementar; implementar não
   autoriza commit, envio, publicação nem etiqueta.
 - Toda verificação vem classificada: REAL REMOTO, REAL LOCAL, DEMONSTRATIVO ou

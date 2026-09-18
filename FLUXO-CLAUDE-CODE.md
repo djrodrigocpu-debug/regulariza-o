@@ -1,36 +1,55 @@
-﻿# Fluxo de Três Janelas — Claude Code
+﻿# Fluxo de janelas — Claude Code
 
-## Quick Start
+A decisão final é sempre sua. Cada janela é uma sessão do Claude Code aberta na
+pasta deste repositório; o que muda é o modelo e o esforço.
 
-Abra **três terminais na mesma pasta do projeto**.
+| Janela | Modelo | Papel |
+|---|---|---|
+| A — Arquiteto | Sonnet 5, em modo plano | Propõe a mudança nos `modelos/` e no `config.js` |
+| B — Contraditor | Opus 5 | Questiona: fere o Provimento 205/2021? promete resultado? é seguro em LGPD? |
+| C — Executor | Sonnet 5, esforço `medium` | Implementa. Pode recusar. Valida o JSON-LD |
+| D — Auditor | Fable 5.1, esforço `high` | Confere 205/2021, LGPD, nome proibido, JSON-LD e CSP |
 
-### Janela A: Planejamento (Opus 5)
-\\\ash
+## Abrir cada janela
+
+Sempre a partir da pasta deste repositório:
+
+```bash
+claude --model claude-sonnet-5
+```
+
+```bash
 claude --model claude-opus-5
-# Shift+Tab → plan mode
-\\\
+```
 
-### Janela B: Execução (Sonnet 5)
-\\\ash
+```bash
 claude --model claude-sonnet-5 --effort medium
-\\\
+```
 
-### Janela C: Auditoria (Fable 5)
-\\\ash
-claude --model claude-fable-5 --effort ultracode
-\\\
+```bash
+claude --model claude-fable-5-1 --effort high
+```
 
 ## Dentro da sessão
 
-\\\
-/model opus        /model sonnet      /model fable
-/effort medium     /effort ultracode  /effort low
-\\\
+Dá para trocar sem reabrir a janela:
 
-## Resumo
+```
+/model opus
+/model sonnet
+/model fable
+/effort medium
+/effort high
+```
 
-| Modelo | Esforço | Quando | Por quê |
-|--------|---------|--------|--------|
-| Opus 5 | plan mode | Planejamento | Pensa fundo, vê arquivos reais |
-| Sonnet 5 | medium | Execução | Balanceado, economiza token |
-| Fable 5 | ultracode | Auditoria | Máximo raciocínio + workflows |
+`Shift+Tab` alterna o modo plano, em que o Claude propõe sem editar arquivo.
+
+## Ordem de trabalho
+
+1. A propõe.
+2. B contesta.
+3. Você decide.
+4. C implementa só o que você aprovou.
+5. D audita.
+6. Você autoriza o commit, depois o envio, depois a publicação — cada um é uma
+   autorização separada.

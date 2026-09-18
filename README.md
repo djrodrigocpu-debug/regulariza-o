@@ -1,4 +1,4 @@
-# Regularização Judicial de Carros Antigos — Rodrigo Souza Filho (OAB/PR 95.516)
+# Regularização Judicial de Carros Antigos — Rodrigo Augusto Wagner de Souza Filho (OAB/PR 95.516)
 
 Landing page estática para campanha de Google Ads, posicionada na especialidade
 principal do escritório: **regularização judicial de carros antigos, clássicos,

@@ -310,6 +310,12 @@
     });
   });
 
+  Array.prototype.forEach.call(doc.querySelectorAll("[data-email]"), function (a) {
+    a.addEventListener("click", function () {
+      evento("email_click", { button_location: a.getAttribute("data-local") || "" });
+    });
+  });
+
   /* ============================================================
      6. FORMULÁRIO DE TRIAGEM
      Não envia nada para servidor: monta a mensagem e abre o

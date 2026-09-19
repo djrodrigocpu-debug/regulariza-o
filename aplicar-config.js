@@ -131,7 +131,9 @@ function resolver(txt, cfg) {
   }
   if (tem.telefone) {
     const dig = cfg.telefoneExibicao.replace(/\D/g, "");
-    txt = txt.split("__TEL__").join("tel:+55" + dig).split("__TEL_TXT__").join(cfg.telefoneExibicao.trim());
+    txt = txt.split("__TEL_E164__").join("+55" + dig)
+             .split("__TEL_TXT__").join(cfg.telefoneExibicao.trim())
+             .split("__TEL__").join("tel:+55" + dig);
   }
   if (tem.email) {
     txt = txt.split("__EMAIL_LINK__").join("mailto:" + cfg.email.trim()).split("__EMAIL__").join(cfg.email.trim());
@@ -150,7 +152,7 @@ function resolver(txt, cfg) {
 
 /* nenhum marcador pode sobrar no HTML publicado */
 function conferirSobras(nome, txt) {
-  const sobras = txt.match(/<!--\/?(?:SE|SENAO):[a-zA-Z]+-->|__(?:WA:|TEL__|TEL_TXT__|EMAIL__|EMAIL_LINK__|URL__|URL_OUTRO__|URL_INSTITUCIONAL__)/g);
+  const sobras = txt.match(/<!--\/?(?:SE|SENAO):[a-zA-Z]+-->|__(?:WA:|TEL__|TEL_TXT__|TEL_E164__|EMAIL__|EMAIL_LINK__|URL__|URL_OUTRO__|URL_INSTITUCIONAL__)/g);
   if (sobras) {
     console.error("  ATENÇÃO em " + nome + ": marcadores não resolvidos: " + Array.from(new Set(sobras)).join(", "));
     return false;

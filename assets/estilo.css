@@ -122,6 +122,7 @@ p.muted,.muted{color:var(--suave)}
 /* Botão primário dentro do menu e do bloco de contato: os seletores .nav a e .contato-alt a
    são mais específicos que .btn-primario e herdavam cor de link (texto escuro sobre fundo escuro). */
 .nav .btn-primario,.nav .btn-primario:hover,.contato-alt .btn-primario,.contato-alt .btn-primario:hover{color:var(--porcelana);border-bottom-color:transparent}
+.contato-titulo{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--suave);margin:0 0 14px}
 .btn:focus-visible,a:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid var(--latao);outline-offset:3px;border-radius:6px}
 
 /* ---------- hero ---------- */
@@ -303,6 +304,10 @@ p.muted,.muted{color:var(--suave)}
 /* link de texto no hero para a seção Sobre (aparece também no celular,
    onde o menu some) */
 .link-sobre{color:var(--pinheiro);font-weight:600;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+/* Mesmo tratamento do link acima, sem o nowrap: o rótulo é mais longo e
+   precisa poder quebrar em telas estreitas. */
+.link-contato{color:var(--pinheiro);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.link-contato:hover{color:var(--latao-escuro)}
 .link-sobre:hover{color:var(--latao-escuro)}
 
 /* ---------- utilitários ---------- */

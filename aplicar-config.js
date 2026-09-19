@@ -115,6 +115,7 @@ function resolver(txt, cfg) {
     whatsapp: !!(cfg.whatsapp || "").trim(),
     telefone: !!(cfg.telefoneExibicao || "").trim(),
     email: !!(cfg.email || "").trim(),
+    oab: !!(cfg.oab || "").trim(),
     dominio: !!(cfg.dominio || "").trim(),
     urlOutro: !!urlOutro,
     urlInstitucional: !!urlInst
@@ -138,6 +139,7 @@ function resolver(txt, cfg) {
   if (tem.email) {
     txt = txt.split("__EMAIL_LINK__").join("mailto:" + cfg.email.trim()).split("__EMAIL__").join(cfg.email.trim());
   }
+  if (tem.oab) txt = txt.split("__OAB__").join(cfg.oab.trim());
   if (tem.dominio) {
     txt = txt.split("__URL__").join("https://" + cfg.dominio.trim().replace(/\/+$/, ""));
   }
@@ -152,7 +154,7 @@ function resolver(txt, cfg) {
 
 /* nenhum marcador pode sobrar no HTML publicado */
 function conferirSobras(nome, txt) {
-  const sobras = txt.match(/<!--\/?(?:SE|SENAO):[a-zA-Z]+-->|__(?:WA:|TEL__|TEL_TXT__|TEL_E164__|EMAIL__|EMAIL_LINK__|URL__|URL_OUTRO__|URL_INSTITUCIONAL__)/g);
+  const sobras = txt.match(/<!--\/?(?:SE|SENAO):[a-zA-Z]+-->|__(?:WA:|TEL__|TEL_TXT__|TEL_E164__|OAB__|EMAIL__|EMAIL_LINK__|URL__|URL_OUTRO__|URL_INSTITUCIONAL__)/g);
   if (sobras) {
     console.error("  ATENÇÃO em " + nome + ": marcadores não resolvidos: " + Array.from(new Set(sobras)).join(", "));
     return false;

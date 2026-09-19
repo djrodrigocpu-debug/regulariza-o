@@ -25,6 +25,11 @@ window.CONFIG = {
   /* E-mail de contato. Vazio = nenhum e-mail é exibido. */
   email: "contato@rodrigosouzafilho.adv.br",
 
+  /* Inscrição na OAB. Entra no dado estruturado que os buscadores leem,
+     como identificador único do advogado — é o que separa este Rodrigo
+     dos homônimos. Vazio = não declarado. */
+  oab: "OAB/PR 95.516",
+
   /* Domínio final deste site, sem https:// e sem barra.
      Vazio = o site publica sem canonical/og:url. */
   dominio: "carrosantigos.rodrigosouzafilho.adv.br",

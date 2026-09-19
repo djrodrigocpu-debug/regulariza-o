@@ -62,8 +62,12 @@
   });
   function atualizarConsentGoogle(concedido) {
     var v = concedido ? "granted" : "denied";
+    /* ad_personalization fica SEMPRE negado. A política de privacidade deste
+       site não declara uso de anúncio personalizado, e o vínculo GA4-Ads foi
+       criado só para métricas, sem públicos-alvo. Conceder aqui contradiria o
+       que está publicado. Os outros três sinais seguem a escolha do visitante. */
     window.gtag("consent", "update", {
-      ad_storage: v, ad_user_data: v, ad_personalization: v, analytics_storage: v
+      ad_storage: v, ad_user_data: v, ad_personalization: "denied", analytics_storage: v
     });
   }
 
@@ -78,7 +82,10 @@
     if (!(C.email || "").trim()) faltando.push("email");
     if (!(C.dominio || "").trim()) faltando.push("dominio (sem canonical/og:url)");
     if (!(C.googleTagManagerId || "").trim()) faltando.push("googleTagManagerId (GTM não carrega)");
-    if (!(C.googleAdsConversionId || "").trim()) faltando.push("googleAdsConversionId (sem conversões no Ads)");
+    /* googleAdsConversionId NÃO entra nesta lista: por decisão de projeto ele fica
+       vazio de propósito. As conversões do Google Ads vêm por importação do GA4,
+       não por tag de conversão no site. Cobrar aqui seria pedir o contrário do
+       que foi decidido. */
     if (faltando.length && window.console && console.warn) {
       console.warn("[config.js] Campos ainda vazios: " + faltando.join(", ") +
         ". Preencha em config.js e publique — o Vercel aplica no build.");
@@ -245,8 +252,14 @@
        o contato que virou caso viável ou contrato com o anúncio de
        origem (conversão off-line). A pessoa vê a linha na caixa de
        texto e pode apagá-la antes de enviar. */
-    var ref = campanha.gclid || campanha.wbraid || campanha.gbraid;
-    if (ref) partes.push("Ref: " + ref);
+    var ref = "", tipoRef = "";
+    if (campanha.gclid) { ref = campanha.gclid; tipoRef = "gclid"; }
+    else if (campanha.wbraid) { ref = campanha.wbraid; tipoRef = "wbraid"; }
+    else if (campanha.gbraid) { ref = campanha.gbraid; tipoRef = "gbraid"; }
+    /* O tipo vai junto porque a planilha de conversões off-line precisa saber
+       em qual coluna o código entra: gclid, wbraid e gbraid não são
+       intercambiáveis no upload para o Google Ads. */
+    if (ref) partes.push("Ref: " + tipoRef + " " + ref);
     return partes.length ? partes.join(" | ") : "";
   }
 

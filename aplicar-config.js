@@ -34,7 +34,7 @@ const path = require("path");
 const vm = require("vm");
 const crypto = require("crypto");
 
-const PAGINAS = ["index.html", "privacidade.html", "obrigado.html"];
+const PAGINAS = ["index.html", "privacidade.html", "obrigado.html", "404.html"];
 
 /* Páginas indexáveis (entram no sitemap.xml). As demais — obrigado,
    privacidade — são noindex e ficam de fora, de propósito. */

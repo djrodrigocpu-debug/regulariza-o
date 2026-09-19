@@ -404,7 +404,17 @@ p.muted,.muted{color:var(--suave)}
   /* a barra e o botão flutuante nunca convivem */
   .zap-flutuante{display:none}
   /* espaço para a barra não cobrir o fim da página */
-  body{padding-bottom:82px}
+  /* A barra cresce com a area segura do aparelho (barra de gestos do iPhone),
+     entao a reserva do corpo tem de crescer junto. Com numero fixo, a barra
+     cobria o fim da pagina nesses aparelhos. */
+  body{padding-bottom:calc(82px + env(safe-area-inset-bottom, 0px))}
+}
+@media(min-width:721px){
+  /* Onde a barra fixa dá lugar ao botão flutuante, o canto inferior direito
+     fica ocupado por ele. Sem esta reserva o botão cobre o fim do aviso do
+     Provimento 205/2021 — medido a 768px: a bolha começa em x=675 e o aviso
+     vai até x=729. */
+  .rodape{padding-bottom:104px}
 }
 
 /* ---------- consentimento de cookies ---------- */
